@@ -7,9 +7,11 @@ import javax.swing.JComponent;
 
 public class Navbar extends JComponent {
 
-    private final Color BACKGROUND_COLOR = new Color(30, 30, 30);
+    private final Color BACKGROUND_COLOR = new Color(45, 45, 45);
     private final Color TEXT_COLOR = new Color(230, 230, 230);
-    private final String[] TABS = {"GameLauncher", "Browse", "Downloaded", "Settings"};
+    private final Font FONT = new Font("Navbar font", Font.BOLD, 18);
+    
+    public static final String[] TABS = {"Info", "Browse", "Downloaded", "Settings"};
     private int selected = 0;
 
     public int click(int x) {
@@ -29,7 +31,7 @@ public class Navbar extends JComponent {
         g.fillRect(0, 0, this.getWidth(), this.getHeight());
         g.setColor(TEXT_COLOR);
         int s = this.getWidth() / TABS.length;
-        g.setFont(new Font("Navbar font", Font.BOLD, 14));
+        g.setFont(FONT);
         for (int i = 0; i < TABS.length; i++) {
             g.drawString(TABS[i], s * i + 5, this.getHeight() / 2 + 5);
             if (i == selected) {
