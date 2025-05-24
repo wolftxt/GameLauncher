@@ -9,8 +9,8 @@ public class Navbar extends JComponent {
 
     private final Color BACKGROUND_COLOR = new Color(45, 45, 45);
     private final Color TEXT_COLOR = new Color(230, 230, 230);
-    private final Font FONT = new Font("Navbar font", Font.BOLD, 18);
-    
+    public static final Font FONT = new Font("Navbar font", Font.BOLD, 18);
+
     public static final String[] TABS = {"Info", "Browse", "Downloaded", "Settings"};
     private int selected = 0;
 

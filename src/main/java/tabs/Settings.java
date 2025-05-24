@@ -2,6 +2,6 @@ package tabs;
 
 import javax.swing.JPanel;
 
-public class Downloaded extends JPanel {
+public class Settings extends JPanel {
 
 }
