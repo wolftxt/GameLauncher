@@ -1,6 +1,7 @@
 package main;
 
 import java.awt.Color;
+import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.Graphics;
 import javax.swing.JComponent;
@@ -13,6 +14,11 @@ public class Navbar extends JComponent {
 
     public static final String[] TABS = {"Info", "Browse", "Downloaded", "Settings"};
     private int selected = 0;
+
+    public Navbar() {
+        this.setMaximumSize(new Dimension(50, 50));
+        this.setPreferredSize(new Dimension(70, 70));
+    }
 
     public int click(int x) {
         if (x < 0 || x >= this.getWidth()) {
