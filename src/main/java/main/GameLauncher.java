@@ -25,7 +25,7 @@ public class GameLauncher extends javax.swing.JFrame {
             System.out.println("The OS does not support setting the dock icon.");
         }
 
-        this.setSize(800, 600);
+        this.setSize(1200, 800);
 
         navbar1 = new main.Navbar();
         pageContainer1 = new main.PageContainer();

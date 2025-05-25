@@ -22,7 +22,7 @@ public class PageContainer extends JPanel {
     private int selected = 0;
 
     public PageContainer() {
-        cardlayout = new CardLayout();
+        cardlayout = new CardLayout(10, 10);
         this.setLayout(cardlayout);
         loadPages();
     }
