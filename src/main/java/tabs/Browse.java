@@ -3,20 +3,35 @@ package tabs;
 import components.Card;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
+import java.io.InputStream;
 import java.net.URL;
+import java.util.Scanner;
 import javax.imageio.ImageIO;
 import javax.swing.JPanel;
+import org.json.JSONArray;
+import org.json.JSONObject;
 
 public class Browse extends JPanel {
 
     public Browse() {
-
         try {
-            URL url = new URL("https://raw.githubusercontent.com/wolftxt/Tower-of-Hanoi/refs/heads/master/screenshot.png");
-            BufferedImage img = ImageIO.read(url);
-            this.add(new Card(img, "Tower-of-Hanoi", "A simple Tower of Hanoi program. It includes a brute force solve algorithm."));
-        } catch (IOException ex) {
-            ex.printStackTrace();
+            URL url = new URL("https://raw.githubusercontent.com/wolftxt/GameLauncher/refs/heads/master/GameList.json");
+            InputStream is = url.openStream();
+            Scanner scanner = new Scanner(is).useDelimiter("\\A");
+            String s = scanner.hasNext() ? scanner.next() : "";
+
+            JSONArray json = new JSONArray(s);
+            for (int i = 0; i < json.length(); i++) {
+                JSONObject cur = json.getJSONObject(i);
+                String title = cur.getString("title");
+                String description = cur.getString("description");
+                URL screenshotUrl = new URL(cur.getString("screenshotUrl"));
+                BufferedImage image = ImageIO.read(screenshotUrl);
+                URL executableUrl = new URL(cur.getString("executableUrl"));
+                this.add(new Card(image, title, description));
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
         }
     }
 }
