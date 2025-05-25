@@ -8,6 +8,7 @@ import javax.swing.JPanel;
 import tabs.Browse;
 import tabs.Downloaded;
 import tabs.Info;
+import tabs.LoadingPage;
 import tabs.Settings;
 
 public class PageContainer extends JPanel {
@@ -18,17 +19,29 @@ public class PageContainer extends JPanel {
 
     private final String[] TABS = Navbar.TABS;
     private CardLayout cardlayout;
+    private int selected = 0;
 
-    public void init() {
+    public PageContainer() {
         cardlayout = new CardLayout();
         this.setLayout(cardlayout);
-        this.add(new Info(), TABS[0]);
-        this.add(new Browse(), TABS[1]);
-        this.add(new Downloaded(), TABS[2]);
-        this.add(new Settings(), TABS[3]);
+        loadPages();
+    }
+
+    private void loadPages() {
+        add(new Info(), TABS[0]); // outside of thread to load faster (info is the default page)
+        add(new LoadingPage(), TABS[1]);
+        add(new Downloaded(), TABS[2]);
+        add(new Settings(), TABS[3]);
+        Thread.ofVirtual().start(() -> {
+            add(new Browse(), TABS[1]); // Loaded inside of a thread because it makes a network request
+            if (selected == 1) {
+                show(1);
+            }
+        });
     }
 
     public void show(int index) {
+        selected = index;
         cardlayout.show(this, TABS[index]);
     }
 }

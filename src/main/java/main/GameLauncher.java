@@ -10,7 +10,6 @@ public class GameLauncher extends javax.swing.JFrame {
 
     public GameLauncher() {
         initComponents();
-        pageContainer1.init();
     }
 
     private void initComponents() {
