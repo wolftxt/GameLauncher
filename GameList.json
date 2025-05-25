@@ -1,0 +1,20 @@
+[
+  {
+    "title": "TicTacToe",
+    "description": "A simple TicTacToe program that works for any board size and with any symbols in a row to win.",
+    "screenshotUrl": "https://raw.githubusercontent.com/wolftxt/TicTacToe/refs/heads/master/screenshot.png",
+    "executableUrl": "https://github.com/wolftxt/TicTacToe/releases/download/1.0.0/TicTacToe.jar"
+  },
+  {
+    "title": "Minesweeper",
+    "description": "A simple Minesweeper program that works for any board size and with any amount of mines.",
+    "screenshotUrl": "https://raw.githubusercontent.com/wolftxt/Minesweeper/refs/heads/master/screenshot.png",
+    "executableUrl": "https://github.com/wolftxt/Minesweeper/releases/download/1.0.0/Mines.jar"
+  },
+  {
+    "title": "Tower-of-Hanoi",
+    "description": "A simple Tower of Hanoi program. It includes a brute force solve algorithm.",
+    "screenshotUrl": "https://raw.githubusercontent.com/wolftxt/Tower-of-Hanoi/refs/heads/master/screenshot.png",
+    "executableUrl": "https://github.com/wolftxt/Tower-of-Hanoi/releases/download/1.0.0/Hanoi.jar"
+  }
+]
