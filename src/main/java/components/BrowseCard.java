@@ -8,44 +8,28 @@ import java.nio.file.*;
 import java.util.Scanner;
 import javax.imageio.ImageIO;
 import javax.swing.*;
+import main.GameDownloadCallback;
 
 import main.Navbar;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
-public class Card extends JPanel {
+public class BrowseCard extends AbstractCard {
 
-    private static final int WIDTH = 400;
-
-    public Card(BufferedImage image, String title, String description, URL executableUrl) {
-        this.setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
-        Image scaled = image.getScaledInstance(WIDTH, WIDTH * 10 / 16, Image.SCALE_SMOOTH); // Images are 16:10
-
-        JLabel img = new JLabel(new ImageIcon(scaled));
-        img.setAlignmentX(Component.CENTER_ALIGNMENT);
-
-        JLabel heading = new JLabel(title);
-        heading.setFont(Navbar.FONT);
+    public BrowseCard(BufferedImage image, String title, String description, URL executableUrl, GameDownloadCallback callback) {
+        super(image, title, description);
         JButton button = new JButton("Download");
         button.setFont(new Font("ButtonFont", Font.PLAIN, Navbar.FONT.getSize()));
         button.addActionListener(e -> {
-            downloadGame(image, title, description, executableUrl);
+            downloadGame(image, title, description, executableUrl, callback);
         });
-        JPanel wrapper = new JPanel(new BorderLayout());
-        wrapper.add(heading, BorderLayout.CENTER);
         wrapper.add(button, BorderLayout.EAST);
-
-        DisplayText desc = new DisplayText(description);
-        desc.setAlignmentX(Component.CENTER_ALIGNMENT);
-        this.add(img);
-        this.add(wrapper);
-        this.add(desc);
     }
 
-    private void downloadGame(BufferedImage image, String title, String description, URL executableUrl) {
+    private void downloadGame(BufferedImage image, String title, String description, URL executableUrl, GameDownloadCallback callback) {
         Thread.ofVirtual().start(() -> {
             try {
-                File newFile = new File(Card.class.getProtectionDomain().getCodeSource().getLocation().toURI());
+                File newFile = new File(BrowseCard.class.getProtectionDomain().getCodeSource().getLocation().toURI());
                 File parent = newFile.getParentFile();
                 File games = new File(parent, "games");
                 File gameFolder = new File(games, title);
@@ -62,6 +46,7 @@ public class Card extends JPanel {
                 Path path = new File(gameFolder, title + ".jar").toPath();
                 InputStream in = executableUrl.openStream();
                 Files.copy(in, path, StandardCopyOption.REPLACE_EXISTING);
+                callback.update(); // callback to update the Downloaded panel
             } catch (IOException | URISyntaxException ex) {
                 ex.printStackTrace();
             }
@@ -84,7 +69,7 @@ public class Card extends JPanel {
         }
 
         for (int i = 0; i < json.length(); i++) {
-            JSONObject object = (JSONObject) json.get(i);
+            JSONObject object = json.getJSONObject(i);
             if (object.get("title").equals(title)) {
                 return false;
             }

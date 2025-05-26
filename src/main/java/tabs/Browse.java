@@ -1,6 +1,6 @@
 package tabs;
 
-import components.Card;
+import components.BrowseCard;
 import java.awt.FlowLayout;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
@@ -9,13 +9,14 @@ import java.net.URL;
 import java.util.Scanner;
 import javax.imageio.ImageIO;
 import javax.swing.JPanel;
+import main.GameDownloadCallback;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
 
 public class Browse extends JPanel {
 
-    public Browse() {
+    public Browse(GameDownloadCallback callback) {
         this.setLayout(new FlowLayout(FlowLayout.CENTER, 20, 20));
         try {
             URL url = new URL("https://raw.githubusercontent.com/wolftxt/GameLauncher/refs/heads/master/GameList.json");
@@ -31,7 +32,7 @@ public class Browse extends JPanel {
                 URL screenshotUrl = new URL(cur.getString("screenshotUrl"));
                 BufferedImage image = ImageIO.read(screenshotUrl);
                 URL executableUrl = new URL(cur.getString("executableUrl"));
-                this.add(new Card(image, title, description, executableUrl));
+                this.add(new BrowseCard(image, title, description, executableUrl, callback));
             }
         } catch (IOException e) {
             e.printStackTrace();
