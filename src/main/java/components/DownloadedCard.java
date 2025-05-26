@@ -1,25 +1,36 @@
 package components;
 
 import java.awt.BorderLayout;
+import java.awt.FlowLayout;
 import java.awt.Font;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.swing.JButton;
+import javax.swing.JPanel;
+import main.IOUtils;
 import main.Navbar;
 
 public class DownloadedCard extends AbstractCard {
 
     public DownloadedCard(BufferedImage image, String title, String description, File executable) {
         super(image, title, description);
-        JButton button = new JButton("Play");
-        button.setFont(new Font("ButtonFont", Font.PLAIN, Navbar.FONT.getSize()));
-        button.addActionListener(e -> {
+        Font buttonFont = new Font("ButtonFont", Font.PLAIN, Navbar.FONT.getSize());
+        JButton uninstall = new JButton("Uninstall");
+        uninstall.setFont(buttonFont);
+        uninstall.setMaximumSize(uninstall.getPreferredSize());
+        uninstall.addActionListener(e -> {
+                IOUtils.uninstall(title);
+        });
+        JButton play = new JButton("Play");
+        play.setFont(buttonFont);
+        play.addActionListener(e -> {
             launchGame(executable);
         });
-        wrapper.add(button, BorderLayout.EAST);
+        JPanel buttons = new JPanel(new FlowLayout(FlowLayout.TRAILING));
+        buttons.add(uninstall);
+        buttons.add(play);
+        wrapper.add(buttons, BorderLayout.EAST);
     }
 
     private void launchGame(File executable) {
