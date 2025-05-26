@@ -5,8 +5,6 @@ import components.BrowseCard;
 import java.io.FileNotFoundException;
 import java.net.URISyntaxException;
 import java.util.Scanner;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
@@ -25,6 +23,7 @@ public class IOUtils {
             while (sc.hasNextLine()) {
                 sb.append(sc.nextLine());
             }
+            sc.close();
             JSONArray json = new JSONArray(sb.toString());
             for (int i = 0; i < json.length(); i++) {
                 JSONObject obj = json.getJSONObject(i);

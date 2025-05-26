@@ -8,12 +8,13 @@ import java.io.File;
 import java.io.IOException;
 import javax.swing.JButton;
 import javax.swing.JPanel;
+import main.GameDownloadCallback;
 import main.IOUtils;
 import main.Navbar;
 
 public class DownloadedCard extends AbstractCard {
 
-    public DownloadedCard(BufferedImage image, String title, String description, File executable) {
+    public DownloadedCard(BufferedImage image, String title, String description, File executable, GameDownloadCallback callback) {
         super(image, title, description);
         Font buttonFont = new Font("ButtonFont", Font.PLAIN, Navbar.FONT.getSize());
         JButton uninstall = new JButton("Uninstall");
@@ -21,6 +22,7 @@ public class DownloadedCard extends AbstractCard {
         uninstall.setMaximumSize(uninstall.getPreferredSize());
         uninstall.addActionListener(e -> {
                 IOUtils.uninstall(title);
+                callback.update();
         });
         JButton play = new JButton("Play");
         play.setFont(buttonFont);

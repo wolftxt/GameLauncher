@@ -11,12 +11,13 @@ import java.net.URISyntaxException;
 import java.util.Scanner;
 import javax.imageio.ImageIO;
 import javax.swing.JPanel;
+import main.GameDownloadCallback;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
 public class Downloaded extends JPanel {
 
-    public Downloaded() {
+    public Downloaded(GameDownloadCallback callback) {
         this.setLayout(new FlowLayout(FlowLayout.CENTER, 20, 20));
         try {
             File newFile = new File(BrowseCard.class.getProtectionDomain().getCodeSource().getLocation().toURI());
@@ -28,6 +29,7 @@ public class Downloaded extends JPanel {
             while (sc.hasNextLine()) {
                 sb.append(sc.nextLine());
             }
+            sc.close();
             JSONArray json = new JSONArray(sb.toString());
             for (int i = 0; i < json.length(); i++) {
                 JSONObject game = json.getJSONObject(i);
@@ -36,7 +38,7 @@ public class Downloaded extends JPanel {
                 File executable = new File(folder, game.getString("title") + ".jar");
 
                 BufferedImage image = ImageIO.read(screenshot);
-                this.add(new DownloadedCard(image, (String) game.get("title"), (String) game.get("description"), executable));
+                this.add(new DownloadedCard(image, game.getString("title"), game.getString("description"), executable, callback));
             }
         } catch (IOException | URISyntaxException ex) {
             this.add(new DisplayText("You havent downloaded any games yet!"));

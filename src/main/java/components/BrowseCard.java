@@ -46,6 +46,7 @@ public class BrowseCard extends AbstractCard {
                 Path path = new File(gameFolder, title + ".jar").toPath();
                 InputStream in = executableUrl.openStream();
                 Files.copy(in, path, StandardCopyOption.REPLACE_EXISTING);
+                in.close();
                 callback.update(); // callback to update the Downloaded panel
             } catch (IOException | URISyntaxException ex) {
                 ex.printStackTrace();

@@ -21,8 +21,10 @@ public class Browse extends JPanel {
         try {
             URL url = new URL("https://raw.githubusercontent.com/wolftxt/GameLauncher/refs/heads/master/GameList.json");
             InputStream is = url.openStream();
-            Scanner scanner = new Scanner(is).useDelimiter("\\A");
-            String s = scanner.hasNext() ? scanner.next() : "";
+            Scanner sc = new Scanner(is).useDelimiter("\\A");
+            String s = sc.hasNext() ? sc.next() : "";
+            sc.close();
+            is.close();
 
             JSONArray json = new JSONArray(s);
             for (int i = 0; i < json.length(); i++) {
