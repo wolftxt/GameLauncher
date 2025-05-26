@@ -1,22 +1,17 @@
 package components;
 
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.awt.image.BufferedImage;
-import java.io.File;
-import java.io.IOException;
-import java.io.InputStream;
-import java.net.URISyntaxException;
-import java.net.URL;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.StandardCopyOption;
-import java.util.logging.Level;
-import java.util.logging.Logger;
+import java.io.*;
+import java.net.*;
+import java.nio.file.*;
+import java.util.Scanner;
 import javax.imageio.ImageIO;
 import javax.swing.*;
+
 import main.Navbar;
+import org.json.JSONArray;
+import org.json.JSONObject;
 
 public class Card extends JPanel {
 
@@ -57,6 +52,9 @@ public class Card extends JPanel {
                 if (!gameFolder.exists()) {
                     gameFolder.mkdirs();
                 }
+                if (!appendToJSON(games, title, description)) {
+                    return;
+                }
 
                 File screenshotFile = new File(gameFolder, "screenshot.png");
                 ImageIO.write(image, "PNG", screenshotFile);
@@ -70,4 +68,39 @@ public class Card extends JPanel {
         });
     }
 
+    private boolean appendToJSON(File games, String title, String description) {
+        JSONArray json;
+        File file = new File(games, "DownloadedList.json");
+        try {
+            StringBuilder sb = new StringBuilder();
+            Scanner sc = new Scanner(file);
+            while (sc.hasNextLine()) {
+                sb.append(sc.nextLine());
+            }
+            json = new JSONArray(sb.toString());
+            sc.close();
+        } catch (FileNotFoundException ex) {
+            json = new JSONArray();
+        }
+
+        for (int i = 0; i < json.length(); i++) {
+            JSONObject object = (JSONObject) json.get(i);
+            if (object.get("title").equals(title)) {
+                return false;
+            }
+        }
+        JSONObject newObj = new JSONObject();
+        newObj.put("title", title);
+        newObj.put("description", description);
+        json.put(newObj);
+
+        try {
+            FileWriter fileOut = new FileWriter(file);
+            fileOut.write(json.toString(4));
+            fileOut.close();
+        } catch (IOException ex) {
+            ex.printStackTrace();
+        }
+        return true;
+    }
 }
