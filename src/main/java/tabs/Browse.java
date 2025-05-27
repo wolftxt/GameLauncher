@@ -4,12 +4,11 @@ import components.BrowseCard;
 import java.awt.FlowLayout;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
-import java.io.InputStream;
 import java.net.URL;
-import java.util.Scanner;
 import javax.imageio.ImageIO;
 import javax.swing.JPanel;
 import main.GameDownloadCallback;
+import main.IOUtils;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
@@ -19,21 +18,15 @@ public class Browse extends JPanel {
     public Browse(GameDownloadCallback callback) {
         this.setLayout(new FlowLayout(FlowLayout.CENTER, 20, 20));
         try {
-            URL url = new URL("https://raw.githubusercontent.com/wolftxt/GameLauncher/refs/heads/master/GameList.json");
-            InputStream is = url.openStream();
-            Scanner sc = new Scanner(is).useDelimiter("\\A");
-            String s = sc.hasNext() ? sc.next() : "";
-            sc.close();
-            is.close();
-
-            JSONArray json = new JSONArray(s);
+            String gameList = IOUtils.getGameList();
+            JSONArray json = new JSONArray(gameList);
             for (int i = 0; i < json.length(); i++) {
-                JSONObject cur = json.getJSONObject(i);
-                String title = cur.getString("title");
-                String description = cur.getString("description");
-                URL screenshotUrl = new URL(cur.getString("screenshotUrl"));
+                JSONObject curr = json.getJSONObject(i);
+                String title = curr.getString("title");
+                String description = curr.getString("description");
+                URL screenshotUrl = new URL(curr.getString("screenshotUrl"));
                 BufferedImage image = ImageIO.read(screenshotUrl);
-                URL executableUrl = new URL(cur.getString("executableUrl"));
+                URL executableUrl = new URL(curr.getString("executableUrl"));
                 this.add(new BrowseCard(image, title, description, executableUrl, callback));
             }
         } catch (IOException e) {
