@@ -3,6 +3,8 @@ package main;
 import java.io.File;
 import components.BrowseCard;
 import java.io.FileNotFoundException;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.net.URISyntaxException;
 import java.util.Scanner;
 import org.json.JSONArray;
@@ -16,7 +18,7 @@ public class IOUtils {
             File parent = newFile.getParentFile();
             File games = new File(parent, "games");
             File gameFolder = new File(games, title);
-            
+
             File jsonFile = new File(games, "DownloadedList.json");
             StringBuilder sb = new StringBuilder();
             Scanner sc = new Scanner(jsonFile);
@@ -32,15 +34,16 @@ public class IOUtils {
                     break;
                 }
             }
+            FileWriter fw = new FileWriter(jsonFile);
+            fw.write(json.toString(4));
+            fw.close();
             File screenshot = new File(gameFolder, "screenshot.png");
             File executable = new File(gameFolder, title + ".jar");
             screenshot.delete();
             executable.delete();
             gameFolder.delete();
-        } catch (URISyntaxException ex) {
+        } catch (URISyntaxException | IOException ex) {
             ex.printStackTrace();
-        } catch (FileNotFoundException ex) {
-            
         }
     }
 }
