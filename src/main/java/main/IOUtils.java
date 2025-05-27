@@ -14,6 +14,7 @@ import java.nio.file.Path;
 import java.nio.file.StandardCopyOption;
 import java.util.Scanner;
 import javax.imageio.ImageIO;
+import javax.swing.JOptionPane;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
@@ -33,18 +34,25 @@ public class IOUtils {
         }
     }
 
-    public static String getGameList() {
-        try {
-            URL url = new URL("https://raw.githubusercontent.com/wolftxt/GameLauncher/refs/heads/master/GameList.json");
-            InputStream is = url.openStream();
-            Scanner sc = new Scanner(is).useDelimiter("\\A");
-            String result = sc.hasNext() ? sc.next() : "";
-            sc.close();
-            is.close();
-            return result;
-        } catch (IOException ex) {
-            throw new RuntimeException("IOException", ex);
+    public static String getGameList() throws InterruptedException {
+        String result = null;
+        boolean found = false;
+        int time = 1000;
+        while (!found) {
+            try {
+                URL url = new URL("https://raw.githubusercontent.com/wolftxt/GameLauncher/refs/heads/master/GameList.json");
+                InputStream is = url.openStream();
+                Scanner sc = new Scanner(is).useDelimiter("\\A");
+                result = sc.hasNext() ? sc.next() : "";
+                sc.close();
+                is.close();
+                found = true;
+            } catch (IOException ex) {
+                Thread.sleep(time);
+                time *= 2;
+            }
         }
+        return result;
     }
 
     public static void downloadGame(BufferedImage image, String title, String description, URL executableUrl, GameDownloadCallback callback) {
@@ -67,7 +75,7 @@ public class IOUtils {
             in.close();
             callback.update(); // callback to update the Downloaded panel
         } catch (IOException ex) {
-            ex.printStackTrace();
+            JOptionPane.showMessageDialog(null, "Wasn't able to download game " + title + ". You probable aren't connected to the internet.");
         }
     }
 
@@ -135,6 +143,9 @@ public class IOUtils {
             screenshot.delete();
             executable.delete();
             gameFolder.delete();
+            if (json.isEmpty()) {
+                jsonFile.delete();
+            }
         } catch (IOException ex) {
             ex.printStackTrace();
         }

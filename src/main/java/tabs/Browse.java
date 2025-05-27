@@ -5,6 +5,8 @@ import java.awt.FlowLayout;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
 import java.net.URL;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.imageio.ImageIO;
 import javax.swing.JPanel;
 import main.GameDownloadCallback;
@@ -29,7 +31,7 @@ public class Browse extends JPanel {
                 URL executableUrl = new URL(curr.getString("executableUrl"));
                 this.add(new BrowseCard(image, title, description, executableUrl, callback));
             }
-        } catch (IOException e) {
+        } catch (IOException | InterruptedException e) {
             e.printStackTrace();
         }
     }
