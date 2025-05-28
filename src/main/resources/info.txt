@@ -1,0 +1,11 @@
+IMPORTANT: This program generates files in the same directory that the .jar is in. Make sure that the executable from which you ran this program was in its own folder. If it wasn't, put it in its own folder and restart the program. 
+
+Welcome to game launcher! Here is quick info about all the tabs:
+
+Info - This page (Self explanatory)
+
+Browse - This page displays the games you can download and play.
+
+Downloaded - Here you can play the games that you downloaded. There is also an uninstall button.
+
+Settings - Customise the UI of this program.
