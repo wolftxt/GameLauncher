@@ -18,7 +18,7 @@ public class PageContainer extends JPanel implements GameDownloadCallback {
     public static final Font FONT = new Font("Page font", Font.PLAIN, 14);
 
     private final String[] TABS = Navbar.TABS;
-    private CardLayout cardlayout;
+    private final CardLayout cardlayout;
     private int selected = 0;
 
     public PageContainer() {
@@ -35,21 +35,29 @@ public class PageContainer extends JPanel implements GameDownloadCallback {
         Thread.ofVirtual().start(() -> {
             add(new Browse(this), TABS[1]); // Loaded inside of a thread because it makes a network request
             if (selected == 1) {
-                show(1);
+                showCard(1);
             }
         });
     }
 
-    public void show(int index) {
+    public void showCard(int index) {
         selected = index;
         cardlayout.show(this, TABS[index]);
     }
 
     @Override
-    public void update() {
+    public void updateDownloaded() {
         add(new Downloaded(this), TABS[2]);
         if (selected == 2) {
-            show(2);
+            showCard(2);
+        }
+    }
+
+    @Override
+    public void updateBrowse(String message) {
+        add(new DisplayText(message), TABS[1]);
+        if (selected == 1) {
+            showCard(1);
         }
     }
 }

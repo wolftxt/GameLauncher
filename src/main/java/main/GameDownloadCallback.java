@@ -2,5 +2,7 @@ package main;
 
 public interface GameDownloadCallback {
 
-    public void update();
+    public void updateDownloaded();
+
+    public void updateBrowse(String message);
 }

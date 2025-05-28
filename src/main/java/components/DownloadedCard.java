@@ -22,7 +22,7 @@ public class DownloadedCard extends AbstractCard {
         uninstall.setMaximumSize(uninstall.getPreferredSize());
         uninstall.addActionListener(e -> {
                 IOUtils.uninstall(title);
-                callback.update();
+                callback.updateDownloaded();
         });
         JButton play = new JButton("Play");
         play.setFont(buttonFont);

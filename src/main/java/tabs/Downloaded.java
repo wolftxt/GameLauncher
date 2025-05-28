@@ -1,13 +1,11 @@
 package tabs;
 
-import components.BrowseCard;
 import components.DisplayText;
 import components.DownloadedCard;
 import java.awt.FlowLayout;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
-import java.net.URISyntaxException;
 import java.util.Scanner;
 import javax.imageio.ImageIO;
 import javax.swing.JPanel;
@@ -40,7 +38,7 @@ public class Downloaded extends JPanel {
                 this.add(new DownloadedCard(image, game.getString("title"), game.getString("description"), executable, callback));
             }
         } catch (IOException ex) {
-            this.add(new DisplayText("You havent downloaded any games yet!"));
+            this.add(new DisplayText("You haven't downloaded any games yet!"));
         }
     }
 }

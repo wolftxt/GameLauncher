@@ -1,18 +1,15 @@
 package main;
 
-import com.formdev.flatlaf.FlatDarkLaf;
-import com.formdev.flatlaf.FlatLaf;
 import java.awt.BorderLayout;
 import java.awt.Taskbar;
 import javax.swing.ImageIcon;
 
+import com.formdev.flatlaf.FlatDarkLaf;
+import com.formdev.flatlaf.FlatLaf;
+
 public class GameLauncher extends javax.swing.JFrame {
 
     public GameLauncher() {
-        initComponents();
-    }
-
-    private void initComponents() {
         this.setTitle("Game Launcher");
         this.setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -24,9 +21,11 @@ public class GameLauncher extends javax.swing.JFrame {
         } catch (Exception e) {
             System.out.println("The OS does not support setting the dock icon.");
         }
-
         this.setSize(1200, 800);
+        initComponents();
+    }
 
+    private void initComponents() {
         navbar1 = new main.Navbar();
         pageContainer1 = new main.PageContainer();
 
@@ -42,7 +41,7 @@ public class GameLauncher extends javax.swing.JFrame {
     }
 
     private void navbar1MouseReleased(java.awt.event.MouseEvent evt) {
-        pageContainer1.show(navbar1.click(evt.getX()));
+        pageContainer1.showCard(navbar1.click(evt.getX()));
     }
 
     public static void main(String args[]) {

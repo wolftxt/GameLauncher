@@ -20,6 +20,8 @@ import org.json.JSONObject;
 
 public class IOUtils {
 
+    private static final String GAME_LIST_URL = "https://raw.githubusercontent.com/wolftxt/GameLauncher/refs/heads/master/GameList.json";
+
     public static final String JSON_FILE_NAME = "DownloadedList.json";
     public static final String SCREENSHOT_NAME = "screenshot.png";
 
@@ -34,13 +36,13 @@ public class IOUtils {
         }
     }
 
-    public static String getGameList() throws InterruptedException {
+    public static String getGameList(GameDownloadCallback callback) throws InterruptedException {
         String result = null;
         boolean found = false;
-        int time = 1000;
+        int timeLength = 1;
         while (!found) {
             try {
-                URL url = new URL("https://raw.githubusercontent.com/wolftxt/GameLauncher/refs/heads/master/GameList.json");
+                URL url = new URL(GAME_LIST_URL);
                 InputStream is = url.openStream();
                 Scanner sc = new Scanner(is).useDelimiter("\\A");
                 result = sc.hasNext() ? sc.next() : "";
@@ -48,8 +50,13 @@ public class IOUtils {
                 is.close();
                 found = true;
             } catch (IOException ex) {
-                Thread.sleep(time);
-                time *= 2;
+                int time = timeLength;
+                timeLength *= 2;
+                while (time > 0) {
+                    callback.updateBrowse("Unable to load game list from " + GAME_LIST_URL + "\nTrying again in " + time + " seconds");
+                    Thread.sleep(1000);
+                    time--;
+                }
             }
         }
         return result;
@@ -73,7 +80,7 @@ public class IOUtils {
             InputStream in = executableUrl.openStream();
             Files.copy(in, path, StandardCopyOption.REPLACE_EXISTING);
             in.close();
-            callback.update(); // callback to update the Downloaded panel
+            callback.updateDownloaded(); // callback to update the Downloaded panel
         } catch (IOException ex) {
             JOptionPane.showMessageDialog(null, "Wasn't able to download game " + title + ". You probable aren't connected to the internet.");
         }

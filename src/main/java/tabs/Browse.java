@@ -5,8 +5,6 @@ import java.awt.FlowLayout;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
 import java.net.URL;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.imageio.ImageIO;
 import javax.swing.JPanel;
 import main.GameDownloadCallback;
@@ -20,7 +18,7 @@ public class Browse extends JPanel {
     public Browse(GameDownloadCallback callback) {
         this.setLayout(new FlowLayout(FlowLayout.CENTER, 20, 20));
         try {
-            String gameList = IOUtils.getGameList();
+            String gameList = IOUtils.getGameList(callback);
             JSONArray json = new JSONArray(gameList);
             for (int i = 0; i < json.length(); i++) {
                 JSONObject curr = json.getJSONObject(i);
