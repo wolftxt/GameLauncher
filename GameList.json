@@ -27,6 +27,6 @@
     "title": "Game-Of-Life",
     "description": "Conway's game of life with cool features.",
     "screenshotUrl": "https://raw.githubusercontent.com/wolftxt/Game-Of-Life/refs/heads/master/screenshot.png",
-    "executableUrl": "https://github.com/wolftxt/Game-Of-Life/releases/download/1.0.0/GameOfLife.jar"
+    "executableUrl": "https://github.com/wolftxt/Game-Of-Life/releases/download/1.0.1/GameOfLife.jar"
   }
 ]
