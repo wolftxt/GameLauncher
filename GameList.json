@@ -16,5 +16,17 @@
     "description": "A simple Tower of Hanoi program. It includes a brute force solve algorithm.",
     "screenshotUrl": "https://raw.githubusercontent.com/wolftxt/Tower-of-Hanoi/refs/heads/master/screenshot.png",
     "executableUrl": "https://github.com/wolftxt/Tower-of-Hanoi/releases/download/1.0.0/Hanoi.jar"
+  },
+  {
+    "title": "Snake",
+    "description": "A simple Snake game for any width and height and game speed.",
+    "screenshotUrl": "https://raw.githubusercontent.com/wolftxt/Snake/refs/tags/1.0.0/screenshot.png",
+    "executableUrl": "https://github.com/wolftxt/Snake/releases/download/1.0.0/Snake.jar"
+  },
+  {
+    "title": "Game-Of-Life",
+    "description": "Conway's game of life with cool features.",
+    "screenshotUrl": "https://raw.githubusercontent.com/wolftxt/Game-Of-Life/refs/heads/master/screenshot.png",
+    "executableUrl": "https://github.com/wolftxt/Game-Of-Life/releases/download/1.0.0/GameOfLife.jar"
   }
 ]
