@@ -1,6 +1,7 @@
 package tabs;
 
 import components.BrowseCard;
+import components.WrapLayout;
 import java.awt.FlowLayout;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
@@ -16,7 +17,7 @@ import org.json.JSONObject;
 public class Browse extends JPanel {
 
     public Browse(GameDownloadCallback callback) {
-        this.setLayout(new FlowLayout(FlowLayout.CENTER, 20, 20));
+        this.setLayout(new WrapLayout(FlowLayout.CENTER, 20, 20));
         try {
             String gameList = IOUtils.getGameList(callback);
             JSONArray json = new JSONArray(gameList);

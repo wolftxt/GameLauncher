@@ -1,20 +1,18 @@
 package tabs;
 
 import components.DisplayText;
-import java.awt.BorderLayout;
 import java.util.Scanner;
-import javax.swing.JPanel;
-import javax.swing.JScrollPane;
 
-public class Info extends JPanel {
-    
+public class Info extends DisplayText {
+
     public Info() {
-        this.setLayout(new BorderLayout());
+        super("");
+        this.setText(getTextFromResources());
+    }
+
+    private String getTextFromResources() {
         Scanner sc = new Scanner(Info.class.getResourceAsStream("/info.txt"));
         sc.useDelimiter("\\A");
-        DisplayText displayText = new DisplayText(sc.next());
-        JScrollPane scrollPane = new JScrollPane(displayText);
-        scrollPane.setBorder(null);
-        this.add(scrollPane, BorderLayout.CENTER);
+        return sc.next();
     }
 }

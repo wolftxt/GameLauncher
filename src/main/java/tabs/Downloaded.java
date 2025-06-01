@@ -2,6 +2,7 @@ package tabs;
 
 import components.DisplayText;
 import components.DownloadedCard;
+import components.WrapLayout;
 import java.awt.FlowLayout;
 import java.awt.image.BufferedImage;
 import java.io.File;
@@ -17,7 +18,7 @@ import org.json.JSONObject;
 public class Downloaded extends JPanel {
 
     public Downloaded(GameDownloadCallback callback) {
-        this.setLayout(new FlowLayout(FlowLayout.CENTER, 20, 20));
+        this.setLayout(new WrapLayout(FlowLayout.CENTER, 20, 20));
         try {
             File games = IOUtils.getGamesFolder();
             File jsonFile = new File(games, IOUtils.JSON_FILE_NAME);
