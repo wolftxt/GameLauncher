@@ -29,10 +29,8 @@ public class DownloadedCard extends AbstractCard {
         play.addActionListener(e -> {
             launchGame(executable);
         });
-        JPanel buttons = new JPanel(new FlowLayout(FlowLayout.TRAILING));
         buttons.add(uninstall);
         buttons.add(play);
-        wrapper.add(buttons, BorderLayout.EAST);
     }
 
     private void launchGame(File executable) {

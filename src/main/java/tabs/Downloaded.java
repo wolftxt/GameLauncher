@@ -39,7 +39,7 @@ public class Downloaded extends JPanel {
             }
         } catch (IOException ex) {
             callback.setMessage(2, "You haven't downloaded any games yet!");
-            throw new RuntimeException("No loaded games"); // Exception to crash thread that would overwrite the previous message
+            Thread.currentThread().interrupt(); // Ensure the message isn't overriden
         }
     }
 }

@@ -61,6 +61,9 @@ public class PageContainer extends JPanel implements TabUpdate {
                     throw new IllegalArgumentException("Index must be between 0 and 3 (both inclusive)");
                 }
             }
+            if (Thread.currentThread().isInterrupted()) {
+                return; // Ensure the message isn't overriden
+            }
             JScrollPane scroll = new JScrollPane(card);
             scroll.setBorder(BorderFactory.createEmptyBorder());
             scroll.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);

@@ -10,7 +10,7 @@ import main.Navbar;
 public class AbstractCard extends JPanel {
 
     private static final int WIDTH = 400;
-    protected JPanel wrapper;
+    protected JPanel buttons;
 
     public AbstractCard(BufferedImage image, String title, String description) {
         this.setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
@@ -21,8 +21,11 @@ public class AbstractCard extends JPanel {
 
         JLabel heading = new JLabel(title);
         heading.setFont(Navbar.FONT);
-        wrapper = new JPanel(new BorderLayout());
+
+        buttons = new JPanel(new FlowLayout(FlowLayout.TRAILING));
+        JPanel wrapper = new JPanel(new BorderLayout());
         wrapper.add(heading, BorderLayout.CENTER);
+        wrapper.add(buttons, BorderLayout.EAST);
 
         DisplayText desc = new DisplayText(description);
         desc.setAlignmentX(Component.CENTER_ALIGNMENT);

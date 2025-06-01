@@ -20,6 +20,6 @@ public class BrowseCard extends AbstractCard {
                 IOUtils.downloadGame(image, title, description, executableUrl, callback);
             });
         });
-        wrapper.add(button, BorderLayout.EAST);
+        buttons.add(button);
     }
 }
