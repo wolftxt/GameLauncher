@@ -1,9 +1,10 @@
 package main;
 
-import components.DisplayText;
+import UIUtils.DisplayText;
 import java.awt.CardLayout;
 import java.awt.Color;
 import java.awt.Font;
+import javax.swing.BorderFactory;
 import javax.swing.JComponent;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
@@ -13,7 +14,7 @@ import tabs.Downloaded;
 import tabs.Info;
 import tabs.Settings;
 
-public class PageContainer extends JPanel implements GameDownloadCallback {
+public class PageContainer extends JPanel implements TabUpdate {
 
     public static final Color BACKGROUND_COLOR = new Color(60, 60, 60);
     public static final Color TEXT_COLOR = new Color(230, 230, 230);
@@ -27,7 +28,7 @@ public class PageContainer extends JPanel implements GameDownloadCallback {
         cardlayout = new CardLayout(10, 10);
         this.setLayout(cardlayout);
         for (int i = 0; i < TABS.length; i++) {
-            add(new DisplayText("Loading..."), TABS[i]);
+            setMessage(i, "Loading...");
         }
         for (int i = 0; i < TABS.length; i++) {
             addCard(i);
@@ -39,6 +40,7 @@ public class PageContainer extends JPanel implements GameDownloadCallback {
         cardlayout.show(this, TABS[index]);
     }
 
+    @Override
     public void addCard(int index) {
         Thread.ofVirtual().start(() -> {
             JComponent card;
@@ -60,6 +62,7 @@ public class PageContainer extends JPanel implements GameDownloadCallback {
                 }
             }
             JScrollPane scroll = new JScrollPane(card);
+            scroll.setBorder(BorderFactory.createEmptyBorder());
             scroll.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
             scroll.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
             scroll.getVerticalScrollBar().setUnitIncrement(16);
@@ -71,12 +74,10 @@ public class PageContainer extends JPanel implements GameDownloadCallback {
     }
 
     @Override
-    public void updateDownloaded() {
-        addCard(2);
-    }
-
-    @Override
-    public void updateBrowse(String message) {
-        addCard(1);
+    public void setMessage(int index, String message) {
+        add(new DisplayText(message), TABS[index]);
+        if (selected == index) {
+            showCard(index);
+        }
     }
 }

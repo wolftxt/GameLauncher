@@ -1,22 +1,22 @@
 package tabs;
 
-import components.BrowseCard;
-import components.WrapLayout;
+import cards.BrowseCard;
+import UIUtils.WrapLayout;
 import java.awt.FlowLayout;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
 import java.net.URL;
 import javax.imageio.ImageIO;
 import javax.swing.JPanel;
-import main.GameDownloadCallback;
 import main.IOUtils;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
+import main.TabUpdate;
 
 public class Browse extends JPanel {
 
-    public Browse(GameDownloadCallback callback) {
+    public Browse(TabUpdate callback) {
         this.setLayout(new WrapLayout(FlowLayout.CENTER, 20, 20));
         try {
             String gameList = IOUtils.getGameList(callback);

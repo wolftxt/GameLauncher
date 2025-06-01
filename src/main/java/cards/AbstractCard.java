@@ -1,5 +1,6 @@
-package components;
+package cards;
 
+import UIUtils.DisplayText;
 import java.awt.*;
 import java.awt.image.BufferedImage;
 import javax.swing.*;

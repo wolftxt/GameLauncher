@@ -1,4 +1,4 @@
-package components;
+package UIUtils;
 
 import java.awt.*;
 import javax.swing.JScrollPane;

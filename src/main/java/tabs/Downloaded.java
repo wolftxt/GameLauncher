@@ -1,8 +1,7 @@
 package tabs;
 
-import components.DisplayText;
-import components.DownloadedCard;
-import components.WrapLayout;
+import cards.DownloadedCard;
+import UIUtils.WrapLayout;
 import java.awt.FlowLayout;
 import java.awt.image.BufferedImage;
 import java.io.File;
@@ -10,14 +9,14 @@ import java.io.IOException;
 import java.util.Scanner;
 import javax.imageio.ImageIO;
 import javax.swing.JPanel;
-import main.GameDownloadCallback;
 import main.IOUtils;
 import org.json.JSONArray;
 import org.json.JSONObject;
+import main.TabUpdate;
 
 public class Downloaded extends JPanel {
 
-    public Downloaded(GameDownloadCallback callback) {
+    public Downloaded(TabUpdate callback) {
         this.setLayout(new WrapLayout(FlowLayout.CENTER, 20, 20));
         try {
             File games = IOUtils.getGamesFolder();
@@ -39,7 +38,8 @@ public class Downloaded extends JPanel {
                 this.add(new DownloadedCard(image, game.getString("title"), game.getString("description"), executable, callback));
             }
         } catch (IOException ex) {
-            this.add(new DisplayText("You haven't downloaded any games yet!"));
+            callback.setMessage(2, "You haven't downloaded any games yet!");
+            throw new RuntimeException("No loaded games"); // Exception to crash thread that would overwrite the previous message
         }
     }
 }

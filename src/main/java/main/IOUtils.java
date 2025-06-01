@@ -1,7 +1,7 @@
 package main;
 
 import java.io.File;
-import components.BrowseCard;
+import cards.BrowseCard;
 import java.awt.image.BufferedImage;
 import java.io.FileNotFoundException;
 import java.io.FileWriter;
@@ -36,7 +36,7 @@ public class IOUtils {
         }
     }
 
-    public static String getGameList(GameDownloadCallback callback) throws InterruptedException {
+    public static String getGameList(TabUpdate callback) throws InterruptedException {
         String result = null;
         boolean found = false;
         int timeLength = 1;
@@ -53,7 +53,7 @@ public class IOUtils {
                 int time = timeLength;
                 timeLength *= 2;
                 while (time > 0) {
-                    callback.updateBrowse("Unable to load game list from " + GAME_LIST_URL + "\nTrying again in " + time + " seconds");
+                    callback.setMessage(1, "Unable to load game list from " + GAME_LIST_URL + "\nTrying again in " + time + " seconds");
                     Thread.sleep(1000);
                     time--;
                 }
@@ -62,7 +62,7 @@ public class IOUtils {
         return result;
     }
 
-    public static void downloadGame(BufferedImage image, String title, String description, URL executableUrl, GameDownloadCallback callback) {
+    public static void downloadGame(BufferedImage image, String title, String description, URL executableUrl, TabUpdate callback) {
         try {
             File games = getGamesFolder();
             File gameFolder = new File(games, title);
@@ -80,7 +80,7 @@ public class IOUtils {
             InputStream in = executableUrl.openStream();
             Files.copy(in, path, StandardCopyOption.REPLACE_EXISTING);
             in.close();
-            callback.updateDownloaded(); // callback to update the Downloaded panel
+            callback.addCard(2); // callback to update the Downloaded panel
         } catch (IOException ex) {
             JOptionPane.showMessageDialog(null, "Wasn't able to download game " + title + ". You probable aren't connected to the internet.");
         }

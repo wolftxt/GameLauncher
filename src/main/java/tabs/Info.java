@@ -1,6 +1,6 @@
 package tabs;
 
-import components.DisplayText;
+import UIUtils.DisplayText;
 import java.util.Scanner;
 
 public class Info extends DisplayText {

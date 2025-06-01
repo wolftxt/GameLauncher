@@ -1,4 +1,4 @@
-package components;
+package UIUtils;
 
 import javax.swing.JTextArea;
 import main.PageContainer;
