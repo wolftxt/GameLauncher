@@ -1,7 +1,6 @@
 package UIUtils;
 
 import javax.swing.JTextArea;
-import main.PageContainer;
 
 public class DisplayText extends JTextArea {
 
@@ -11,7 +10,7 @@ public class DisplayText extends JTextArea {
         this.setLineWrap(true);
         this.setWrapStyleWord(true);
         this.setFocusable(false);
-        this.setFont(PageContainer.FONT);
+        this.setFont(UIsettings.PAGE_FONT);
     }
 
 }

@@ -1,9 +1,8 @@
 package main;
 
 import UIUtils.DisplayText;
+import UIUtils.UIsettings;
 import java.awt.CardLayout;
-import java.awt.Color;
-import java.awt.Font;
 import javax.swing.BorderFactory;
 import javax.swing.JComponent;
 import javax.swing.JPanel;
@@ -16,16 +15,12 @@ import tabs.Settings;
 
 public class PageContainer extends JPanel implements TabUpdate {
 
-    public static final Color BACKGROUND_COLOR = new Color(60, 60, 60);
-    public static final Color TEXT_COLOR = new Color(230, 230, 230);
-    public static final Font FONT = new Font("Page font", Font.PLAIN, 14);
-
     private final String[] TABS = Navbar.TABS;
     private final CardLayout cardlayout;
     private int selected = 0;
 
     public PageContainer() {
-        cardlayout = new CardLayout(10, 10);
+        cardlayout = new CardLayout(UIsettings.TAB_MARGIN.width, UIsettings.TAB_MARGIN.height);
         this.setLayout(cardlayout);
         for (int i = 0; i < TABS.length; i++) {
             setMessage(i, "Loading...");
@@ -68,7 +63,7 @@ public class PageContainer extends JPanel implements TabUpdate {
             scroll.setBorder(BorderFactory.createEmptyBorder());
             scroll.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
             scroll.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
-            scroll.getVerticalScrollBar().setUnitIncrement(16);
+            scroll.getVerticalScrollBar().setUnitIncrement(UIsettings.SCROLL_SPEED);
             this.add(scroll, TABS[index]);
             if (selected == index) {
                 showCard(index);

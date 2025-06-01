@@ -1,23 +1,16 @@
 package main;
 
-import java.awt.Color;
-import java.awt.Dimension;
-import java.awt.Font;
+import UIUtils.UIsettings;
 import java.awt.Graphics;
 import javax.swing.JComponent;
 
 public class Navbar extends JComponent {
 
-    private final Color BACKGROUND_COLOR = new Color(45, 45, 45);
-    private final Color TEXT_COLOR = new Color(230, 230, 230);
-    public static final Font FONT = new Font("Navbar font", Font.BOLD, 18);
-
     public static final String[] TABS = {"Info", "Browse", "Downloaded", "Settings"};
     private int selected = 0;
 
     public Navbar() {
-        this.setMaximumSize(new Dimension(50, 50));
-        this.setPreferredSize(new Dimension(70, 70));
+        this.setPreferredSize(UIsettings.NAVBAR_DEFAULT_SIZE);
     }
 
     public int click(int x) {
@@ -33,11 +26,11 @@ public class Navbar extends JComponent {
     @Override
     protected void paintComponent(Graphics g) {
         super.paintComponent(g);
-        g.setColor(BACKGROUND_COLOR);
+        g.setColor(UIsettings.NAVBAR_BACKGROUND_COLOR);
         g.fillRect(0, 0, this.getWidth(), this.getHeight());
-        g.setColor(TEXT_COLOR);
+        g.setColor(UIsettings.NAVBAR_TEXT_COLOR);
         int s = this.getWidth() / TABS.length;
-        g.setFont(FONT);
+        g.setFont(UIsettings.NAVBAR_FONT);
         for (int i = 0; i < TABS.length; i++) {
             g.drawString(TABS[i], s * i + 5, this.getHeight() / 2 + 5);
             if (i == selected) {

@@ -1,5 +1,6 @@
 package tabs;
 
+import UIUtils.UIsettings;
 import cards.DownloadedCard;
 import UIUtils.WrapLayout;
 import java.awt.FlowLayout;
@@ -17,7 +18,7 @@ import main.TabUpdate;
 public class Downloaded extends JPanel {
 
     public Downloaded(TabUpdate callback) {
-        this.setLayout(new WrapLayout(FlowLayout.CENTER, 20, 20));
+        this.setLayout(new WrapLayout(FlowLayout.CENTER, UIsettings.TAB_PADDING.width, UIsettings.TAB_PADDING.height));
         try {
             File games = IOUtils.getGamesFolder();
             File jsonFile = new File(games, IOUtils.JSON_FILE_NAME);

@@ -1,5 +1,6 @@
 package main;
 
+import UIUtils.UIsettings;
 import java.awt.BorderLayout;
 import java.awt.Taskbar;
 import javax.swing.ImageIcon;
@@ -21,7 +22,7 @@ public class GameLauncher extends javax.swing.JFrame {
         } catch (Exception e) {
             System.out.println("The OS does not support setting the dock icon.");
         }
-        this.setSize(1200, 800);
+        this.setSize(UIsettings.DEFAULT_WINDOW_SIZE);
         initComponents();
     }
 
