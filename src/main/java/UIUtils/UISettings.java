@@ -1,0 +1,83 @@
+package UIUtils;
+
+import java.awt.*;
+import java.io.*;
+import main.IOUtils;
+
+public class UISettings implements Serializable {
+
+    private static final long serialVersionUID = 1L;
+
+    private static UISettings instance = load();
+
+    private UISettings() {
+    }
+
+    public static UISettings getInstance() {
+        if (instance == null) {
+            instance = new UISettings();
+        }
+        return instance;
+    }
+
+    // UI settings
+    public Dimension DEFAULT_WINDOW_SIZE = new Dimension(1200, 800);
+
+    public Color NAVBAR_BACKGROUND_COLOR = new Color(45, 45, 45);
+    public Color NAVBAR_TEXT_COLOR = new Color(230, 230, 230);
+    public Font NAVBAR_FONT = new Font("SansSerif", Font.BOLD, 18);
+    public Dimension NAVBAR_DEFAULT_SIZE = new Dimension(70, 70);
+
+    public Dimension TAB_MARGIN = new Dimension(10, 10);
+    public Dimension TAB_PADDING = new Dimension(20, 20);
+
+    public int SCROLL_SPEED = 16;
+    public Dimension IMAGE_SIZE = new Dimension(400, 250);
+    public Font CARD_TITLE_FONT = new Font("SansSerif", Font.PLAIN, 18);
+    public Font PAGE_FONT = new Font("SansSerif", Font.PLAIN, 14);
+
+    public static void resetToDefaults() {
+        File file = new File(IOUtils.getGamesFolder(), IOUtils.SETTINGS_FILE_NAME);
+        file.delete();
+        instance = new UISettings();
+    }
+
+    private static UISettings load() {
+        ObjectInputStream ois = null;
+        UISettings result = null;
+        try {
+            File file = new File(IOUtils.getGamesFolder(), IOUtils.SETTINGS_FILE_NAME);
+            ois = new ObjectInputStream(new FileInputStream(file));
+            result = (UISettings) ois.readObject();
+            ois.close();
+        } catch (IOException | ClassNotFoundException ex) {
+            try {
+                ois.close();
+            } catch (IOException | NullPointerException e) {
+                System.err.println("Failed to load settings. The file is probably missing");
+            }
+        }
+        return result;
+    }
+
+    public void save() {
+        ObjectOutputStream oos = null;
+        try {
+            File file = new File(IOUtils.getGamesFolder(), IOUtils.SETTINGS_FILE_NAME);
+            if (!file.exists()) {
+                file.createNewFile();
+            }
+            oos = new ObjectOutputStream(new FileOutputStream(file));
+            oos.writeObject(instance);
+            oos.close();
+        } catch (IOException ex) {
+            ex.printStackTrace();
+        } finally {
+            try {
+                oos.close();
+            } catch (IOException ex) {
+                ex.printStackTrace();
+            }
+        }
+    }
+}

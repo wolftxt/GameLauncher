@@ -1,7 +1,7 @@
 package cards;
 
 import UIUtils.DisplayText;
-import UIUtils.UIsettings;
+import UIUtils.UISettings;
 import java.awt.*;
 import java.awt.image.BufferedImage;
 import javax.swing.*;
@@ -11,14 +11,15 @@ public class AbstractCard extends JPanel {
     protected JPanel buttons;
 
     public AbstractCard(BufferedImage image, String title, String description) {
+        UISettings settings = UISettings.getInstance();
         this.setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
-        Image scaled = image.getScaledInstance(UIsettings.IMAGE_SIZE.width, UIsettings.IMAGE_SIZE.height, Image.SCALE_SMOOTH);
+        Image scaled = image.getScaledInstance(settings.IMAGE_SIZE.width, settings.IMAGE_SIZE.height, Image.SCALE_SMOOTH);
 
         JLabel img = new JLabel(new ImageIcon(scaled));
         img.setAlignmentX(Component.CENTER_ALIGNMENT);
 
         JLabel heading = new JLabel(title);
-        heading.setFont(UIsettings.NAVBAR_FONT);
+        heading.setFont(settings.NAVBAR_FONT);
 
         buttons = new JPanel(new FlowLayout(FlowLayout.TRAILING));
         JPanel wrapper = new JPanel(new BorderLayout());

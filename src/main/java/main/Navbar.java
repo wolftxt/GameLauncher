@@ -1,6 +1,6 @@
 package main;
 
-import UIUtils.UIsettings;
+import UIUtils.UISettings;
 import java.awt.Graphics;
 import javax.swing.JComponent;
 
@@ -10,7 +10,7 @@ public class Navbar extends JComponent {
     private int selected = 0;
 
     public Navbar() {
-        this.setPreferredSize(UIsettings.NAVBAR_DEFAULT_SIZE);
+        this.setPreferredSize(UISettings.getInstance().NAVBAR_DEFAULT_SIZE);
     }
 
     public int click(int x) {
@@ -26,11 +26,12 @@ public class Navbar extends JComponent {
     @Override
     protected void paintComponent(Graphics g) {
         super.paintComponent(g);
-        g.setColor(UIsettings.NAVBAR_BACKGROUND_COLOR);
+        UISettings settings = UISettings.getInstance();
+        g.setColor(settings.NAVBAR_BACKGROUND_COLOR);
         g.fillRect(0, 0, this.getWidth(), this.getHeight());
-        g.setColor(UIsettings.NAVBAR_TEXT_COLOR);
+        g.setColor(settings.NAVBAR_TEXT_COLOR);
         int s = this.getWidth() / TABS.length;
-        g.setFont(UIsettings.NAVBAR_FONT);
+        g.setFont(settings.NAVBAR_FONT);
         for (int i = 0; i < TABS.length; i++) {
             g.drawString(TABS[i], s * i + 5, this.getHeight() / 2 + 5);
             if (i == selected) {

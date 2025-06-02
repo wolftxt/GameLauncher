@@ -1,6 +1,6 @@
 package tabs;
 
-import UIUtils.UIsettings;
+import UIUtils.UISettings;
 import java.awt.*;
 import java.lang.reflect.Field;
 import java.util.Arrays;
@@ -13,28 +13,28 @@ import main.TabUpdate;
 public class Settings extends JPanel {
 
     public Settings(TabUpdate callback) {
+        UISettings settings = UISettings.getInstance();
         this.setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
-        for (Field field : UIsettings.class.getDeclaredFields()) {
+        for (Field field : settings.getClass().getDeclaredFields()) {
             Object object;
             try {
-                object = field.get(null);
+                object = field.get(settings);
             } catch (IllegalArgumentException | IllegalAccessException ex) {
-                ex.printStackTrace();
                 continue;
             }
             JPanel row = new JPanel(new BorderLayout(10, 10));
 
             JLabel label = new JLabel(field.getName() + ": ");
-            label.setFont(UIsettings.PAGE_FONT);
+            label.setFont(settings.PAGE_FONT);
             row.add(label, BorderLayout.WEST);
 
             JLabel currValue = new JLabel(getStringValue(object));
             currValue.setHorizontalAlignment(SwingConstants.CENTER);
-            label.setFont(UIsettings.PAGE_FONT);
+            label.setFont(settings.PAGE_FONT);
             row.add(currValue, BorderLayout.CENTER);
 
             JButton button = new JButton("set");
-            button.setFont(UIsettings.PAGE_FONT);
+            button.setFont(settings.PAGE_FONT);
             button.addActionListener(e -> {
                 setSetting(field, object, callback);
             });
@@ -44,6 +44,14 @@ public class Settings extends JPanel {
             this.add(row);
             this.add(Box.createVerticalStrut(10));
         }
+        JPanel wrapper = new JPanel(new FlowLayout(FlowLayout.LEFT, 10, 10));
+        JButton reset = new JButton("Reset all settings to defaults");
+        reset.setAlignmentX(Component.LEFT_ALIGNMENT);
+        reset.addActionListener(e -> {
+            UISettings.resetToDefaults();
+        });
+        wrapper.add(reset);
+        this.add(wrapper);
     }
 
     private String getStringValue(Object object) {
@@ -55,7 +63,7 @@ public class Settings extends JPanel {
                 return Arrays.toString(c.getColorComponents(null));
             }
             case Font f -> {
-                return f.getFamily() + f.getSize();
+                return f.getFamily() + " " + f.getSize();
             }
             case int i -> {
                 return String.valueOf(i);
@@ -67,6 +75,7 @@ public class Settings extends JPanel {
     }
 
     private void setSetting(Field field, Object object, TabUpdate callback) {
+        UISettings settings = UISettings.getInstance();
         try {
             switch (object) {
                 case Dimension d -> {
@@ -95,7 +104,7 @@ public class Settings extends JPanel {
                         int height = (int) spinner2.getValue();
                         Dimension newSetting = new Dimension(width, height);
                         try {
-                            field.set(null, newSetting);
+                            field.set(settings, newSetting);
                         } catch (IllegalArgumentException | IllegalAccessException ex) {
                             ex.printStackTrace();
                         } finally {
@@ -114,23 +123,24 @@ public class Settings extends JPanel {
                     if (c == null) {
                         return;
                     }
-                    field.set(null, c);
+                    field.set(settings, c);
                 }
                 case Font f -> {
                     FontDialog dialog = new FontDialog((Frame) null, "Font Dialog Example", true);
                     dialog.setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
                     dialog.setVisible(true);
                     if (!dialog.isCancelSelected()) {
-                        field.set(null, dialog.getSelectedFont());
+                        field.set(settings, dialog.getSelectedFont());
                     }
                 }
                 case int i -> {
                     String input = JOptionPane.showInputDialog("Set a numeric value");
-                    field.set(null, Integer.parseInt(input));
+                    field.set(settings, Integer.parseInt(input));
                 }
                 default ->
                     JOptionPane.showMessageDialog(this, "Unsupported datatype", "Cannot modify the datatype of this setting", JOptionPane.ERROR_MESSAGE);
             }
+            UISettings.getInstance().save();
             callback.addCard(3);
         } catch (IllegalArgumentException | IllegalAccessException ex) {
             ex.printStackTrace();

@@ -1,6 +1,6 @@
 package cards;
 
-import UIUtils.UIsettings;
+import UIUtils.UISettings;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
@@ -13,14 +13,14 @@ public class DownloadedCard extends AbstractCard {
     public DownloadedCard(BufferedImage image, String title, String description, File executable, TabUpdate callback) {
         super(image, title, description);
         JButton uninstall = new JButton("Uninstall");
-        uninstall.setFont(UIsettings.CARD_TITLE_FONT);
+        uninstall.setFont(UISettings.getInstance().CARD_TITLE_FONT);
         uninstall.setMaximumSize(uninstall.getPreferredSize());
         uninstall.addActionListener(e -> {
             IOUtils.uninstall(title);
             callback.addCard(2); // Update the Downloaded Panel
         });
         JButton play = new JButton("Play");
-        play.setFont(UIsettings.CARD_TITLE_FONT);
+        play.setFont(UISettings.getInstance().CARD_TITLE_FONT);
         play.addActionListener(e -> {
             launchGame(executable);
         });

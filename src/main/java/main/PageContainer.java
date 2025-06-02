@@ -1,7 +1,7 @@
 package main;
 
 import UIUtils.DisplayText;
-import UIUtils.UIsettings;
+import UIUtils.UISettings;
 import java.awt.CardLayout;
 import javax.swing.BorderFactory;
 import javax.swing.JComponent;
@@ -20,7 +20,8 @@ public class PageContainer extends JPanel implements TabUpdate {
     private int selected = 0;
 
     public PageContainer() {
-        cardlayout = new CardLayout(UIsettings.TAB_MARGIN.width, UIsettings.TAB_MARGIN.height);
+        UISettings settings = UISettings.getInstance();
+        cardlayout = new CardLayout(settings.TAB_MARGIN.width, settings.TAB_MARGIN.height);
         this.setLayout(cardlayout);
         for (int i = 0; i < TABS.length; i++) {
             setMessage(i, "Loading...");
@@ -63,7 +64,7 @@ public class PageContainer extends JPanel implements TabUpdate {
             scroll.setBorder(BorderFactory.createEmptyBorder());
             scroll.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
             scroll.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
-            scroll.getVerticalScrollBar().setUnitIncrement(UIsettings.SCROLL_SPEED);
+            scroll.getVerticalScrollBar().setUnitIncrement(UISettings.getInstance().SCROLL_SPEED);
             this.add(scroll, TABS[index]);
             if (selected == index) {
                 showCard(index);

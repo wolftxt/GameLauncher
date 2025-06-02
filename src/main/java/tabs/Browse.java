@@ -1,6 +1,6 @@
 package tabs;
 
-import UIUtils.UIsettings;
+import UIUtils.UISettings;
 import cards.BrowseCard;
 import UIUtils.WrapLayout;
 import java.awt.FlowLayout;
@@ -18,7 +18,8 @@ import main.TabUpdate;
 public class Browse extends JPanel {
 
     public Browse(TabUpdate callback) {
-        this.setLayout(new WrapLayout(FlowLayout.CENTER, UIsettings.TAB_PADDING.width, UIsettings.TAB_PADDING.height));
+        UISettings settings = UISettings.getInstance();
+        this.setLayout(new WrapLayout(FlowLayout.CENTER, settings.TAB_PADDING.width, settings.TAB_PADDING.height));
         try {
             String gameList = IOUtils.getGameList(callback);
             JSONArray json = new JSONArray(gameList);

@@ -17,6 +17,8 @@ public class IOUtils {
 
     private static final String GAME_LIST_URL = "https://raw.githubusercontent.com/wolftxt/GameLauncher/refs/heads/master/GameList.json";
 
+    public static final String SETTINGS_FILE_NAME = "settings.UISettings";
+
     public static final String JSON_FILE_NAME = "DownloadedList.json";
     public static final String SCREENSHOT_NAME = "screenshot.png";
 

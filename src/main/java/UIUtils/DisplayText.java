@@ -10,7 +10,7 @@ public class DisplayText extends JTextArea {
         this.setLineWrap(true);
         this.setWrapStyleWord(true);
         this.setFocusable(false);
-        this.setFont(UIsettings.PAGE_FONT);
+        this.setFont(UISettings.getInstance().PAGE_FONT);
     }
 
 }
