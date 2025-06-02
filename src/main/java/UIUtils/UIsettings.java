@@ -19,5 +19,5 @@ public class UIsettings {
     public static int SCROLL_SPEED = 16;
     public static Dimension IMAGE_SIZE = new Dimension(400, 250);
     public static Font CARD_TITLE_FONT = new Font("SansSerif", Font.PLAIN, 18);
-    public static Font PAGE_FONT = new Font("Page font", Font.PLAIN, 14);
+    public static Font PAGE_FONT = new Font("SansSerif", Font.PLAIN, 14);
 }

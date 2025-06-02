@@ -50,7 +50,7 @@ public class PageContainer extends JPanel implements TabUpdate {
                     card = new Downloaded(this);
                 }
                 case 3 -> {
-                    card = new Settings();
+                    card = new Settings(this);
                 }
                 default -> {
                     throw new IllegalArgumentException("Index must be between 0 and 3 (both inclusive)");
