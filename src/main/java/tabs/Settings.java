@@ -44,9 +44,8 @@ public class Settings extends JPanel {
             this.add(row);
             this.add(Box.createVerticalStrut(10));
         }
-        JPanel wrapper = new JPanel(new FlowLayout(FlowLayout.LEFT, 10, 10));
+        JPanel wrapper = new JPanel(new FlowLayout(FlowLayout.LEFT));
         JButton reset = new JButton("Reset all settings to defaults");
-        reset.setAlignmentX(Component.LEFT_ALIGNMENT);
         reset.addActionListener(e -> {
             UISettings.resetToDefaults();
         });
@@ -65,7 +64,7 @@ public class Settings extends JPanel {
             case Font f -> {
                 return f.getFamily() + " " + f.getSize();
             }
-            case int i -> {
+            case Integer i -> {
                 return String.valueOf(i);
             }
             default -> {
@@ -86,6 +85,7 @@ public class Settings extends JPanel {
 
                     JPanel row1 = new JPanel(new FlowLayout());
                     JLabel label1 = new JLabel("Width: ");
+                    label1.setFont(settings.PAGE_FONT);
                     JSpinner spinner1 = new JSpinner(new SpinnerNumberModel(d.width, 0, 10000, 1));
                     row1.add(label1);
                     row1.add(spinner1);
@@ -98,7 +98,9 @@ public class Settings extends JPanel {
                     row2.add(spinner2);
                     popup.add(row2);
 
+                    JPanel wrapper = new JPanel(new FlowLayout(FlowLayout.CENTER));
                     JButton button = new JButton("Submit");
+                    button.setFont(settings.PAGE_FONT);
                     button.addActionListener(e -> {
                         int width = (int) spinner1.getValue();
                         int height = (int) spinner2.getValue();
@@ -111,7 +113,8 @@ public class Settings extends JPanel {
                             dialog.dispose();
                         }
                     });
-                    popup.add(button);
+                    wrapper.add(button);
+                    popup.add(wrapper);
 
                     dialog.add(popup);
                     dialog.pack();
@@ -133,9 +136,13 @@ public class Settings extends JPanel {
                         field.set(settings, dialog.getSelectedFont());
                     }
                 }
-                case int i -> {
+                case Integer i -> {
                     String input = JOptionPane.showInputDialog("Set a numeric value");
-                    field.set(settings, Integer.parseInt(input));
+                    try {
+                        field.set(settings, Integer.parseInt(input));
+                    } catch (NumberFormatException ex) {
+                        System.err.println("Invalid number input");
+                    }
                 }
                 default ->
                     JOptionPane.showMessageDialog(this, "Unsupported datatype", "Cannot modify the datatype of this setting", JOptionPane.ERROR_MESSAGE);

@@ -8,4 +8,4 @@ Browse - This page displays the games you can download and play.
 
 Downloaded - Here you can play the games that you downloaded. There is also an uninstall button.
 
-Settings - Customise the UI of this program.
+Settings - Customise the UI of this program. Might require a restart.
