@@ -24,7 +24,10 @@
 - Prerequisites:
   - JDK 21
 - Download the latest release
-- Navigate to the directory where your .jar is located and launch the .jar file with java -jar ```bash java -jar GameLauncher.jar```
+- Navigate to the directory where your .jar is located and launch the .jar file with
+```
+  java -jar GameLauncher.jar
+```
 - The program makes a games folder in the same directory that the .jar file is in. So if you don't want to get suprised by a random games folder on your desktop, it is recommended that you put the .jar file into it's own folder
 
 ## Personal interest
