@@ -142,11 +142,7 @@ public class IOUtils {
             FileWriter fw = new FileWriter(jsonFile);
             fw.write(json.toString(4));
             fw.close();
-            File screenshot = new File(gameFolder, SCREENSHOT_NAME);
-            File executable = new File(gameFolder, title + ".jar");
-            screenshot.delete();
-            executable.delete();
-            gameFolder.delete();
+            deleteFiles(gameFolder);
             if (json.isEmpty()) {
                 jsonFile.delete();
             }
@@ -154,4 +150,27 @@ public class IOUtils {
             ex.printStackTrace();
         }
     }
+
+    /**
+     * Recursively deletes a folder and its contents. Same thing as:
+     *
+     * rm -rf *
+     *
+     * cd ..
+     *
+     * rmdir directoryName
+     *
+     * @param folder
+     */
+    private static void deleteFiles(File folder) {
+        for (File file : folder.listFiles()) {
+            if (file.isDirectory()) {
+                deleteFiles(file);
+            } else {
+                file.delete();
+            }
+        }
+        folder.delete();
+    }
+
 }

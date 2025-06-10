@@ -2,6 +2,7 @@ package tabs;
 
 import UIUtils.UISettings;
 import java.awt.*;
+import java.io.IOException;
 import java.lang.reflect.Field;
 import java.util.Arrays;
 import javax.swing.*;
@@ -93,6 +94,7 @@ public class Settings extends JPanel {
 
                     JPanel row2 = new JPanel(new FlowLayout());
                     JLabel label2 = new JLabel("Height: ");
+                    label2.setFont(settings.PAGE_FONT);
                     JSpinner spinner2 = new JSpinner(new SpinnerNumberModel(d.height, 0, 10000, 1));
                     row2.add(label2);
                     row2.add(spinner2);
@@ -129,7 +131,7 @@ public class Settings extends JPanel {
                     field.set(settings, c);
                 }
                 case Font f -> {
-                    FontDialog dialog = new FontDialog((Frame) null, "Font Dialog Example", true);
+                    FontDialog dialog = new FontDialog((Frame) null, "Choose a font:", true);
                     dialog.setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
                     dialog.setVisible(true);
                     if (!dialog.isCancelSelected()) {
@@ -149,7 +151,7 @@ public class Settings extends JPanel {
             }
             UISettings.getInstance().save();
             callback.addCard(3);
-        } catch (IllegalArgumentException | IllegalAccessException ex) {
+        } catch (IllegalArgumentException | IllegalAccessException | IOException ex) {
             ex.printStackTrace();
         }
     }

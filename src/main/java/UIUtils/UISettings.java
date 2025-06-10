@@ -60,24 +60,13 @@ public class UISettings implements Serializable {
         return result;
     }
 
-    public void save() {
-        ObjectOutputStream oos = null;
-        try {
-            File file = new File(IOUtils.getGamesFolder(), IOUtils.SETTINGS_FILE_NAME);
-            if (!file.exists()) {
-                file.createNewFile();
-            }
-            oos = new ObjectOutputStream(new FileOutputStream(file));
-            oos.writeObject(instance);
-            oos.close();
-        } catch (IOException ex) {
-            ex.printStackTrace();
-        } finally {
-            try {
-                oos.close();
-            } catch (IOException ex) {
-                ex.printStackTrace();
-            }
+    public void save() throws IOException {
+        File file = new File(IOUtils.getGamesFolder(), IOUtils.SETTINGS_FILE_NAME);
+        if (!file.exists()) {
+            file.createNewFile();
         }
+        ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream(file));
+        oos.writeObject(instance);
+        oos.close();
     }
 }
