@@ -74,9 +74,16 @@ public class IOUtils {
             ImageIO.write(image, "PNG", screenshotFile);
 
             Path path = new File(gameFolder, title + ".jar").toPath();
-            InputStream in = executableUrl.openStream();
-            Files.copy(in, path, StandardCopyOption.REPLACE_EXISTING);
+            BufferedInputStream in = new BufferedInputStream(executableUrl.openStream());
+            BufferedOutputStream out = new BufferedOutputStream(Files.newOutputStream(path, StandardOpenOption.CREATE, StandardOpenOption.TRUNCATE_EXISTING));
+            byte[] buffer = new byte[8192];
+            int bytesRead;
+            while ((bytesRead = in.read(buffer)) != -1) {
+                out.write(buffer, 0, bytesRead);
+            }
+            out.close();
             in.close();
+
             callback.addCard(2); // callback to update the Downloaded panel
         } catch (IOException ex) {
             JOptionPane.showMessageDialog(null, "Wasn't able to download game " + title + ". You probable aren't connected to the internet.");

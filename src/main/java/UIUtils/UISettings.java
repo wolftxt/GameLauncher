@@ -43,19 +43,12 @@ public class UISettings implements Serializable {
     }
 
     private static UISettings load() {
-        ObjectInputStream ois = null;
         UISettings result = null;
-        try {
-            File file = new File(IOUtils.getGamesFolder(), IOUtils.SETTINGS_FILE_NAME);
-            ois = new ObjectInputStream(new FileInputStream(file));
+        File file = new File(IOUtils.getGamesFolder(), IOUtils.SETTINGS_FILE_NAME);
+        try (ObjectInputStream ois = new ObjectInputStream(new FileInputStream(file))) {
             result = (UISettings) ois.readObject();
-            ois.close();
         } catch (IOException | ClassNotFoundException ex) {
-            try {
-                ois.close();
-            } catch (IOException | NullPointerException e) {
-                System.err.println("Failed to load settings. The file is probably missing");
-            }
+            System.err.println("Failed to load settings. The file is probably missing");
         }
         return result;
     }
