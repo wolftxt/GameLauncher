@@ -8,6 +8,14 @@ import javax.swing.ImageIcon;
 import com.formdev.flatlaf.FlatDarkLaf;
 import com.formdev.flatlaf.FlatLaf;
 
+/**
+ * Main class of the GameLauncher program. Sets up FlatDarkLaf for looks and
+ * feels, icon, taskbar icon (if supported by the operating system). Initialises
+ * the 2 parts of the GUI (the navbar and the page). Uses BorderLayout to
+ * organise these 2 components.
+ *
+ * @author davidwolf
+ */
 public class GameLauncher extends javax.swing.JFrame {
 
     public GameLauncher() {

@@ -3,6 +3,11 @@ package tabs;
 import UIUtils.DisplayText;
 import java.util.Scanner;
 
+/**
+ * The info tab of the program. Displays basic info text about the program.
+ *
+ * @author davidwolf
+ */
 public class Info extends DisplayText {
 
     public Info() {

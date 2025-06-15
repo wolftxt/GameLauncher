@@ -6,7 +6,13 @@ import java.awt.*;
 import java.awt.image.BufferedImage;
 import javax.swing.*;
 
-public class AbstractCard extends JPanel {
+/**
+ * An abstract class to nicely display an image, title and a description.
+ * Extended by BrowseCard and DownloadedCard classes.
+ *
+ * @author davidwolf
+ */
+public abstract class AbstractCard extends JPanel {
 
     protected JPanel buttons;
 

@@ -8,6 +8,12 @@ import main.IOUtils;
 
 import main.TabUpdate;
 
+/**
+ * AbstractCard extension used for cards in the browse section. Adds a download
+ * button to the card to download games.
+ *
+ * @author davidwolf
+ */
 public class BrowseCard extends AbstractCard {
 
     public BrowseCard(BufferedImage image, String title, String description, URL executableUrl, TabUpdate callback) {

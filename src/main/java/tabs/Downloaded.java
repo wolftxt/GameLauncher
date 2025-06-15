@@ -11,10 +11,17 @@ import java.util.Scanner;
 import javax.imageio.ImageIO;
 import javax.swing.JPanel;
 import main.IOUtils;
+
 import org.json.JSONArray;
 import org.json.JSONObject;
+
 import main.TabUpdate;
 
+/**
+ * The downloaded tab of the program. Holds all downloaded cards.
+ *
+ * @author davidwolf
+ */
 public class Downloaded extends JPanel {
 
     public Downloaded(TabUpdate callback) {

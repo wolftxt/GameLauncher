@@ -11,6 +11,13 @@ import org.drjekyll.fontchooser.FontDialog;
 
 import main.TabUpdate;
 
+/**
+ * The info tab of the program. Allows the user to customize the UI of the
+ * program, although changes might need a restart. Uses a library for font
+ * choosing dialog.
+ *
+ * @author davidwolf
+ */
 public class Settings extends JPanel {
 
     public Settings(TabUpdate callback) {

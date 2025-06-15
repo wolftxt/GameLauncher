@@ -4,6 +4,12 @@ import java.awt.*;
 import java.io.*;
 import main.IOUtils;
 
+/**
+ * A singleton class used to store UI constants such as colors, fonts, etc. Can
+ * be loaded and saved to a file.
+ *
+ * @author davidwolf
+ */
 public class UISettings implements Serializable {
 
     private static final long serialVersionUID = 1L;

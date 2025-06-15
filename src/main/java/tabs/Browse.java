@@ -15,6 +15,11 @@ import org.json.JSONArray;
 import org.json.JSONObject;
 import main.TabUpdate;
 
+/**
+ * The browse tab of the program. Holds cards loaded from GitHub.
+ *
+ * @author davidwolf
+ */
 public class Browse extends JPanel {
 
     public Browse(TabUpdate callback) {

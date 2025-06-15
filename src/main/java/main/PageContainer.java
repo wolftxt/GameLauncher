@@ -13,6 +13,14 @@ import tabs.Downloaded;
 import tabs.Info;
 import tabs.Settings;
 
+/**
+ * The main JPanel of the program used to hold all the tabs and enable
+ * scrolling. Uses CardLayout to switch between the tabs. Initially sets all
+ * tabs to a loading text while it loads the contents of the tabs in a virtual
+ * thread.
+ *
+ * @author davidwolf
+ */
 public class PageContainer extends JPanel implements TabUpdate {
 
     private final String[] TABS = Navbar.TABS;

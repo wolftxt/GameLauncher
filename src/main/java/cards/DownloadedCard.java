@@ -8,6 +8,12 @@ import javax.swing.JButton;
 import main.IOUtils;
 import main.TabUpdate;
 
+/**
+ * AbstractCard extension used for cards in the downloaded section. Adds a play
+ * and uninstall button.
+ *
+ * @author davidwolf
+ */
 public class DownloadedCard extends AbstractCard {
 
     public DownloadedCard(BufferedImage image, String title, String description, File executable, TabUpdate callback) {

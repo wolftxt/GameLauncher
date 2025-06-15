@@ -10,9 +10,20 @@ import java.nio.file.*;
 import java.util.Scanner;
 import javax.imageio.ImageIO;
 import javax.swing.JOptionPane;
+
 import org.json.JSONArray;
 import org.json.JSONObject;
 
+/**
+ * A class used for files IO operations and downloading games from GitHub.
+ *
+ * File IO: Creates a folder called "games" in the same directory as the .jar
+ * file and saves and loads everything from that folder.
+ *
+ * GitHub: Uses a library to parse JSON files.
+ *
+ * @author davidwolf
+ */
 public class IOUtils {
 
     private static final String GAME_LIST_URL = "https://raw.githubusercontent.com/wolftxt/GameLauncher/refs/heads/master/GameList.json";

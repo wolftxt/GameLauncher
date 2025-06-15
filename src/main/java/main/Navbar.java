@@ -4,6 +4,11 @@ import UIUtils.UISettings;
 import java.awt.Graphics;
 import javax.swing.JComponent;
 
+/**
+ * A simple navbar with a underline to highlight the selected tab.
+ *
+ * @author davidwolf
+ */
 public class Navbar extends JComponent {
 
     public static final String[] TABS = {"Info", "Browse", "Downloaded", "Settings"};
