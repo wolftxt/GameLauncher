@@ -21,7 +21,7 @@
     "title": "Snake",
     "description": "A simple Snake game for any width and height and game speed.",
     "screenshotUrl": "https://raw.githubusercontent.com/wolftxt/Snake/refs/tags/1.0.0/screenshot.png",
-    "executableUrl": "https://github.com/wolftxt/Snake/releases/download/1.0.0/Snake.jar"
+    "executableUrl": "https://github.com/wolftxt/Snake/releases/download/1.0.1/Snake.jar"
   },
   {
     "title": "Game-Of-Life",
