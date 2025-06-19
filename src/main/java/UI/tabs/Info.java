@@ -1,6 +1,6 @@
-package tabs;
+package UI.tabs;
 
-import UIUtils.DisplayText;
+import UI.UIUtils.DisplayText;
 import java.util.Scanner;
 
 /**

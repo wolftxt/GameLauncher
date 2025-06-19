@@ -1,7 +1,7 @@
-package IO;
+package IO.files;
 
+import IO.IORemote;
 import java.io.File;
-import cards.BrowseCard;
 import java.awt.image.BufferedImage;
 import java.io.*;
 import java.net.URISyntaxException;
@@ -21,40 +21,21 @@ import org.json.JSONObject;
  *
  * @author davidwolf
  */
-public class FileIO {
-
-    public static final String SETTINGS_FILE_NAME = "settings.UISettings";
-
-    public static final String JSON_FILE_NAME = "DownloadedList.json";
-    public static final String SCREENSHOT_NAME = "screenshot.png";
-
-    public static File getGamesFolder() {
-        try {
-            File newFile = new File(BrowseCard.class.getProtectionDomain().getCodeSource().getLocation().toURI());
-            File parent = newFile.getParentFile();
-            File games = new File(parent, "games");
-            return games;
-        } catch (URISyntaxException ex) {
-            throw new RuntimeException("URISyntaxException", ex);
-        }
-    }
+public class FileWrite {
 
     public static void downloadGame(BufferedImage image, String title, String description, String executableURL) {
         try {
-            File games = getGamesFolder();
-            File gameFolder = new File(games, title);
-            if (!gameFolder.exists()) {
-                gameFolder.mkdirs();
-            }
-            File jsonFile = new File(games, JSON_FILE_NAME);
-            if (!FileIO.appendToJSON(jsonFile, title, description)) {
+            File jsonFile = FileNavigation.getJSONFile();
+            if (!FileWrite.appendToJSON(jsonFile, title, description)) {
                 return;
             }
+            File gameFolder = FileNavigation.getGameFolder(title);
+            gameFolder.mkdirs();
 
-            File screenshotFile = new File(gameFolder, "screenshot.png");
+            File screenshotFile = FileNavigation.getScreenshotFile(title);
             ImageIO.write(image, "PNG", screenshotFile);
 
-            Path path = new File(gameFolder, title + ".jar").toPath();
+            Path path = FileNavigation.getExecutableFile(title).toPath();
             IORemote.downloadJar(executableURL, path);
         } catch (IOException | URISyntaxException ex) {
             JOptionPane.showMessageDialog(null, "Wasn't able to download game " + title + ". You probable aren't connected to the internet.");
@@ -98,10 +79,11 @@ public class FileIO {
 
     public static void uninstall(String title) {
         try {
-            File games = getGamesFolder();
-            File gameFolder = new File(games, title);
+            File gameFolder = FileNavigation.getGameFolder(title);
+            File jsonFile = FileNavigation.getJSONFile();
 
-            File jsonFile = new File(games, JSON_FILE_NAME);
+            deleteFiles(gameFolder);
+
             StringBuilder sb = new StringBuilder();
             Scanner sc = new Scanner(jsonFile);
             while (sc.hasNextLine()) {
@@ -116,13 +98,13 @@ public class FileIO {
                     break;
                 }
             }
+            if (json.isEmpty()) {
+                jsonFile.delete();
+                return;
+            }
             FileWriter fw = new FileWriter(jsonFile);
             fw.write(json.toString(4));
             fw.close();
-            deleteFiles(gameFolder);
-            if (json.isEmpty()) {
-                jsonFile.delete();
-            }
         } catch (IOException ex) {
             ex.printStackTrace();
         }

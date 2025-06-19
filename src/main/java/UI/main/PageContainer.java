@@ -1,17 +1,17 @@
-package main;
+package UI.main;
 
-import UIUtils.DisplayText;
-import UIUtils.UISettings;
+import UI.UIUtils.DisplayText;
+import UI.UIUtils.UISettings;
 import java.awt.CardLayout;
 import javax.swing.BorderFactory;
 import javax.swing.JComponent;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 
-import tabs.Browse;
-import tabs.Downloaded;
-import tabs.Info;
-import tabs.Settings;
+import UI.tabs.Browse;
+import UI.tabs.Downloaded;
+import UI.tabs.Info;
+import UI.tabs.Settings;
 
 /**
  * The main JPanel of the program used to hold all the tabs and enable

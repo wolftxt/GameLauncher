@@ -1,21 +1,17 @@
-package tabs;
+package UI.tabs;
 
-import UIUtils.UISettings;
-import cards.DownloadedCard;
-import UIUtils.WrapLayout;
+import UI.UIUtils.UISettings;
+import UI.cards.DownloadedCard;
+import UI.UIUtils.WrapLayout;
 import java.awt.FlowLayout;
-import java.awt.image.BufferedImage;
-import java.io.File;
 import java.io.IOException;
-import java.util.Scanner;
-import javax.imageio.ImageIO;
 import javax.swing.JPanel;
-import IO.FileIO;
+import IO.files.FileRead;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
 
-import main.TabUpdate;
+import UI.main.TabUpdate;
 
 /**
  * The downloaded tab of the program. Holds all downloaded cards.
@@ -28,23 +24,12 @@ public class Downloaded extends JPanel {
         UISettings settings = UISettings.getInstance();
         this.setLayout(new WrapLayout(FlowLayout.CENTER, settings.TAB_PADDING.width, settings.TAB_PADDING.height));
         try {
-            File games = FileIO.getGamesFolder();
-            File jsonFile = new File(games, FileIO.JSON_FILE_NAME);
-            StringBuilder sb = new StringBuilder();
-            Scanner sc = new Scanner(jsonFile);
-            while (sc.hasNextLine()) {
-                sb.append(sc.nextLine());
-            }
-            sc.close();
-            JSONArray json = new JSONArray(sb.toString());
+            JSONArray json = FileRead.readJSON();
             for (int i = 0; i < json.length(); i++) {
                 JSONObject game = json.getJSONObject(i);
-                File folder = new File(games, game.getString("title"));
-                File screenshot = new File(folder, FileIO.SCREENSHOT_NAME);
-                File executable = new File(folder, game.getString("title") + ".jar");
-
-                BufferedImage image = ImageIO.read(screenshot);
-                this.add(new DownloadedCard(image, game.getString("title"), game.getString("description"), executable, callback));
+                String title = game.getString("title");
+                String description = game.getString("description");
+                this.add(new DownloadedCard(title, description, callback));
             }
         } catch (IOException ex) {
             callback.setMessage(2, "You haven't downloaded any games yet!");

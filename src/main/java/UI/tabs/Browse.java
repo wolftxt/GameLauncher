@@ -1,21 +1,18 @@
-package tabs;
+package UI.tabs;
 
-import UIUtils.UISettings;
-import cards.BrowseCard;
-import UIUtils.WrapLayout;
+import UI.UIUtils.UISettings;
+import UI.cards.BrowseCard;
+import UI.UIUtils.WrapLayout;
 import java.awt.FlowLayout;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
-import java.net.URL;
-import javax.imageio.ImageIO;
 import javax.swing.JPanel;
-import IO.FileIO;
 import IO.IORemote;
 import java.net.URISyntaxException;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
-import main.TabUpdate;
+import UI.main.TabUpdate;
 
 /**
  * The browse tab of the program. Holds cards loaded from GitHub.

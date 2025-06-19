@@ -1,8 +1,9 @@
-package UIUtils;
+package UI.UIUtils;
 
+import IO.files.FileNavigation;
 import java.awt.*;
 import java.io.*;
-import IO.FileIO;
+import IO.files.FileWrite;
 
 /**
  * A singleton class used to store UI constants such as colors, fonts, etc. Can
@@ -43,14 +44,14 @@ public class UISettings implements Serializable {
     public Font PAGE_FONT = new Font("SansSerif", Font.PLAIN, 14);
 
     public static void resetToDefaults() {
-        File file = new File(FileIO.getGamesFolder(), FileIO.SETTINGS_FILE_NAME);
+        File file = FileNavigation.getSettingsFile();
         file.delete();
         instance = new UISettings();
     }
 
     private static UISettings load() {
         UISettings result = null;
-        File file = new File(FileIO.getGamesFolder(), FileIO.SETTINGS_FILE_NAME);
+        File file = FileNavigation.getSettingsFile();
         try (ObjectInputStream ois = new ObjectInputStream(new FileInputStream(file))) {
             result = (UISettings) ois.readObject();
         } catch (IOException | ClassNotFoundException ex) {
@@ -60,7 +61,7 @@ public class UISettings implements Serializable {
     }
 
     public void save() throws IOException {
-        File file = new File(FileIO.getGamesFolder(), FileIO.SETTINGS_FILE_NAME);
+        File file = FileNavigation.getSettingsFile();
         if (!file.exists()) {
             file.createNewFile();
         }

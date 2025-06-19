@@ -1,11 +1,12 @@
-package cards;
+package UI.cards;
 
-import IO.FileIO;
-import UIUtils.UISettings;
+import IO.files.FileWrite;
+import UI.UIUtils.UISettings;
 import java.awt.image.BufferedImage;
+import java.io.IOException;
 import javax.swing.*;
 
-import main.TabUpdate;
+import UI.main.TabUpdate;
 
 /**
  * AbstractCard extension used for cards in the browse section. Adds a download
@@ -15,13 +16,13 @@ import main.TabUpdate;
  */
 public class BrowseCard extends AbstractCard {
 
-    public BrowseCard(BufferedImage image, String title, String description, String executableUrl, TabUpdate callback) {
+    public BrowseCard(BufferedImage image, String title, String description, String executableUrl, TabUpdate callback) throws IOException {
         super(image, title, description);
         JButton button = new JButton("Download");
         button.setFont(UISettings.getInstance().CARD_TITLE_FONT);
         button.addActionListener(e -> {
             Thread.ofVirtual().start(() -> {
-                FileIO.downloadGame(image, title, description, executableUrl);
+                FileWrite.downloadGame(image, title, description, executableUrl);
                 callback.addCard(2); // callback to update the Downloaded panel
             });
         });

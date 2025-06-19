@@ -1,4 +1,4 @@
-package UIUtils;
+package UI.UIUtils;
 
 import javax.swing.JTextArea;
 

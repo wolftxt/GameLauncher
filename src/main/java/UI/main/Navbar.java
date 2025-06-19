@@ -1,6 +1,6 @@
-package main;
+package UI.main;
 
-import UIUtils.UISettings;
+import UI.UIUtils.UISettings;
 import java.awt.Graphics;
 import javax.swing.JComponent;
 

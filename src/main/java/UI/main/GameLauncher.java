@@ -1,6 +1,6 @@
-package main;
+package UI.main;
 
-import UIUtils.UISettings;
+import UI.UIUtils.UISettings;
 import java.awt.BorderLayout;
 import java.awt.Taskbar;
 import javax.swing.ImageIcon;
@@ -35,8 +35,8 @@ public class GameLauncher extends javax.swing.JFrame {
     }
 
     private void initComponents() {
-        navbar1 = new main.Navbar();
-        pageContainer1 = new main.PageContainer();
+        navbar1 = new Navbar();
+        pageContainer1 = new PageContainer();
 
         navbar1.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseReleased(java.awt.event.MouseEvent evt) {
@@ -63,6 +63,6 @@ public class GameLauncher extends javax.swing.JFrame {
         });
     }
 
-    private main.Navbar navbar1;
-    private main.PageContainer pageContainer1;
+    private Navbar navbar1;
+    private PageContainer pageContainer1;
 }

@@ -1,4 +1,4 @@
-package main;
+package UI.main;
 
 /**
  * Simple interface to update the UI when state changes.

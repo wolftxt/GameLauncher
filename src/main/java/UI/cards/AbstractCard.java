@@ -1,9 +1,11 @@
-package cards;
+package UI.cards;
 
-import UIUtils.DisplayText;
-import UIUtils.UISettings;
+import IO.files.FileRead;
+import UI.UIUtils.DisplayText;
+import UI.UIUtils.UISettings;
 import java.awt.*;
 import java.awt.image.BufferedImage;
+import java.io.IOException;
 import javax.swing.*;
 
 /**
@@ -16,9 +18,12 @@ public abstract class AbstractCard extends JPanel {
 
     protected JPanel buttons;
 
-    public AbstractCard(BufferedImage image, String title, String description) {
+    public AbstractCard(BufferedImage image, String title, String description) throws IOException {
         UISettings settings = UISettings.getInstance();
         this.setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
+        if (image == null) {
+            image = FileRead.readImage(title);
+        }
         Image scaled = image.getScaledInstance(settings.IMAGE_SIZE.width, settings.IMAGE_SIZE.height, Image.SCALE_SMOOTH);
 
         JLabel img = new JLabel(new ImageIcon(scaled));

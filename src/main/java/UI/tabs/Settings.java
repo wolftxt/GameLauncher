@@ -1,6 +1,6 @@
-package tabs;
+package UI.tabs;
 
-import UIUtils.UISettings;
+import UI.UIUtils.UISettings;
 import java.awt.*;
 import java.io.IOException;
 import java.lang.reflect.Field;
@@ -9,7 +9,7 @@ import javax.swing.*;
 
 import org.drjekyll.fontchooser.FontDialog;
 
-import main.TabUpdate;
+import UI.main.TabUpdate;
 
 /**
  * The info tab of the program. Allows the user to customize the UI of the

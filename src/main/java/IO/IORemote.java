@@ -10,7 +10,7 @@ import java.nio.file.Path;
 import java.nio.file.StandardOpenOption;
 import java.util.Scanner;
 import javax.imageio.ImageIO;
-import main.TabUpdate;
+import UI.main.TabUpdate;
 
 import org.json.JSONArray;
 
