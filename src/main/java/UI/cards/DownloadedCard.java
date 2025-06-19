@@ -5,7 +5,7 @@ import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 import javax.swing.JButton;
-import main.IOUtils;
+import IO.FileIO;
 import main.TabUpdate;
 
 /**
@@ -22,7 +22,7 @@ public class DownloadedCard extends AbstractCard {
         uninstall.setFont(UISettings.getInstance().CARD_TITLE_FONT);
         uninstall.setMaximumSize(uninstall.getPreferredSize());
         uninstall.addActionListener(e -> {
-            IOUtils.uninstall(title);
+            FileIO.uninstall(title);
             callback.addCard(2); // Update the Downloaded Panel
         });
         JButton play = new JButton("Play");

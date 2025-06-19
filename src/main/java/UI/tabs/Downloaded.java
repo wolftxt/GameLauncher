@@ -10,7 +10,7 @@ import java.io.IOException;
 import java.util.Scanner;
 import javax.imageio.ImageIO;
 import javax.swing.JPanel;
-import main.IOUtils;
+import IO.FileIO;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
@@ -28,8 +28,8 @@ public class Downloaded extends JPanel {
         UISettings settings = UISettings.getInstance();
         this.setLayout(new WrapLayout(FlowLayout.CENTER, settings.TAB_PADDING.width, settings.TAB_PADDING.height));
         try {
-            File games = IOUtils.getGamesFolder();
-            File jsonFile = new File(games, IOUtils.JSON_FILE_NAME);
+            File games = FileIO.getGamesFolder();
+            File jsonFile = new File(games, FileIO.JSON_FILE_NAME);
             StringBuilder sb = new StringBuilder();
             Scanner sc = new Scanner(jsonFile);
             while (sc.hasNextLine()) {
@@ -40,7 +40,7 @@ public class Downloaded extends JPanel {
             for (int i = 0; i < json.length(); i++) {
                 JSONObject game = json.getJSONObject(i);
                 File folder = new File(games, game.getString("title"));
-                File screenshot = new File(folder, IOUtils.SCREENSHOT_NAME);
+                File screenshot = new File(folder, FileIO.SCREENSHOT_NAME);
                 File executable = new File(folder, game.getString("title") + ".jar");
 
                 BufferedImage image = ImageIO.read(screenshot);

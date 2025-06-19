@@ -1,12 +1,11 @@
-package main;
+package IO;
 
 import java.io.File;
 import cards.BrowseCard;
 import java.awt.image.BufferedImage;
 import java.io.*;
 import java.net.URISyntaxException;
-import java.net.URL;
-import java.nio.file.*;
+import java.nio.file.Path;
 import java.util.Scanner;
 import javax.imageio.ImageIO;
 import javax.swing.JOptionPane;
@@ -15,18 +14,14 @@ import org.json.JSONArray;
 import org.json.JSONObject;
 
 /**
- * A class used for files IO operations and downloading games from GitHub.
+ * A class used for files IO operations.
  *
  * File IO: Creates a folder called "games" in the same directory as the .jar
  * file and saves and loads everything from that folder.
  *
- * GitHub: Uses a library to parse JSON files.
- *
  * @author davidwolf
  */
-public class IOUtils {
-
-    private static final String GAME_LIST_URL = "https://raw.githubusercontent.com/wolftxt/GameLauncher/refs/heads/master/GameList.json";
+public class FileIO {
 
     public static final String SETTINGS_FILE_NAME = "settings.UISettings";
 
@@ -44,40 +39,15 @@ public class IOUtils {
         }
     }
 
-    public static String getGameList(TabUpdate callback) throws InterruptedException {
-        String result = null;
-        boolean found = false;
-        int timeLength = 1;
-        while (!found) {
-            try {
-                URL url = new URL(GAME_LIST_URL);
-                InputStream is = url.openStream();
-                Scanner sc = new Scanner(is).useDelimiter("\\A");
-                result = sc.hasNext() ? sc.next() : "";
-                sc.close();
-                is.close();
-                found = true;
-            } catch (IOException ex) {
-                int time = timeLength;
-                timeLength *= 2;
-                while (time > 0) {
-                    callback.setMessage(1, "Unable to load game list from " + GAME_LIST_URL + "\nTrying again in " + time + " seconds");
-                    Thread.sleep(1000);
-                    time--;
-                }
-            }
-        }
-        return result;
-    }
-
-    public static void downloadGame(BufferedImage image, String title, String description, URL executableUrl, TabUpdate callback) {
+    public static void downloadGame(BufferedImage image, String title, String description, String executableURL) {
         try {
             File games = getGamesFolder();
             File gameFolder = new File(games, title);
             if (!gameFolder.exists()) {
                 gameFolder.mkdirs();
             }
-            if (!appendToJSON(games, title, description)) {
+            File jsonFile = new File(games, JSON_FILE_NAME);
+            if (!FileIO.appendToJSON(jsonFile, title, description)) {
                 return;
             }
 
@@ -85,28 +55,17 @@ public class IOUtils {
             ImageIO.write(image, "PNG", screenshotFile);
 
             Path path = new File(gameFolder, title + ".jar").toPath();
-            BufferedInputStream in = new BufferedInputStream(executableUrl.openStream());
-            BufferedOutputStream out = new BufferedOutputStream(Files.newOutputStream(path, StandardOpenOption.CREATE, StandardOpenOption.TRUNCATE_EXISTING));
-            byte[] buffer = new byte[8192];
-            int bytesRead;
-            while ((bytesRead = in.read(buffer)) != -1) {
-                out.write(buffer, 0, bytesRead);
-            }
-            out.close();
-            in.close();
-
-            callback.addCard(2); // callback to update the Downloaded panel
-        } catch (IOException ex) {
+            IORemote.downloadJar(executableURL, path);
+        } catch (IOException | URISyntaxException ex) {
             JOptionPane.showMessageDialog(null, "Wasn't able to download game " + title + ". You probable aren't connected to the internet.");
         }
     }
 
-    private static boolean appendToJSON(File games, String title, String description) {
+    public static boolean appendToJSON(File jsonFile, String title, String description) {
         JSONArray json;
-        File file = new File(games, JSON_FILE_NAME);
         try {
             StringBuilder sb = new StringBuilder();
-            Scanner sc = new Scanner(file);
+            Scanner sc = new Scanner(jsonFile);
             while (sc.hasNextLine()) {
                 sb.append(sc.nextLine());
             }
@@ -128,7 +87,7 @@ public class IOUtils {
         json.put(newObj);
 
         try {
-            FileWriter fileOut = new FileWriter(file);
+            FileWriter fileOut = new FileWriter(jsonFile);
             fileOut.write(json.toString(4));
             fileOut.close();
         } catch (IOException ex) {

@@ -1,10 +1,9 @@
 package cards;
 
+import IO.FileIO;
 import UIUtils.UISettings;
 import java.awt.image.BufferedImage;
-import java.net.*;
 import javax.swing.*;
-import main.IOUtils;
 
 import main.TabUpdate;
 
@@ -16,13 +15,14 @@ import main.TabUpdate;
  */
 public class BrowseCard extends AbstractCard {
 
-    public BrowseCard(BufferedImage image, String title, String description, URL executableUrl, TabUpdate callback) {
+    public BrowseCard(BufferedImage image, String title, String description, String executableUrl, TabUpdate callback) {
         super(image, title, description);
         JButton button = new JButton("Download");
         button.setFont(UISettings.getInstance().CARD_TITLE_FONT);
         button.addActionListener(e -> {
             Thread.ofVirtual().start(() -> {
-                IOUtils.downloadGame(image, title, description, executableUrl, callback);
+                FileIO.downloadGame(image, title, description, executableUrl);
+                callback.addCard(2); // callback to update the Downloaded panel
             });
         });
         buttons.add(button);
