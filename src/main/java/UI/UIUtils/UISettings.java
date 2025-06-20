@@ -1,9 +1,9 @@
 package UI.UIUtils;
 
 import IO.files.FileNavigation;
+import IO.files.FileRead;
 import java.awt.*;
 import java.io.*;
-import IO.files.FileWrite;
 
 /**
  * A singleton class used to store UI constants such as colors, fonts, etc. Can
@@ -15,12 +15,12 @@ public class UISettings implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
-    private static UISettings instance = load();
-
-    private UISettings() {
-    }
+    private static UISettings instance;
 
     public static UISettings getInstance() {
+        if (instance == null) {
+            instance = FileRead.loadSettings(); // Returns null if file not found
+        }
         if (instance == null) {
             instance = new UISettings();
         }
@@ -47,26 +47,5 @@ public class UISettings implements Serializable {
         File file = FileNavigation.getSettingsFile();
         file.delete();
         instance = new UISettings();
-    }
-
-    private static UISettings load() {
-        UISettings result = null;
-        File file = FileNavigation.getSettingsFile();
-        try (ObjectInputStream ois = new ObjectInputStream(new FileInputStream(file))) {
-            result = (UISettings) ois.readObject();
-        } catch (IOException | ClassNotFoundException ex) {
-            System.err.println("Failed to load settings. The file is probably missing");
-        }
-        return result;
-    }
-
-    public void save() throws IOException {
-        File file = FileNavigation.getSettingsFile();
-        if (!file.exists()) {
-            file.createNewFile();
-        }
-        ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream(file));
-        oos.writeObject(instance);
-        oos.close();
     }
 }

@@ -1,5 +1,6 @@
 package UI.tabs;
 
+import IO.files.FileWrite;
 import UI.UIUtils.UISettings;
 import java.awt.*;
 import java.io.IOException;
@@ -156,7 +157,7 @@ public class Settings extends JPanel {
                 default ->
                     JOptionPane.showMessageDialog(this, "Unsupported datatype", "Cannot modify the datatype of this setting", JOptionPane.ERROR_MESSAGE);
             }
-            UISettings.getInstance().save();
+            FileWrite.saveSettings();
             callback.addCard(3);
         } catch (IllegalArgumentException | IllegalAccessException | IOException ex) {
             ex.printStackTrace();

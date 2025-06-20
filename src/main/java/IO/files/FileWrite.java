@@ -1,6 +1,7 @@
 package IO.files;
 
 import IO.IORemote;
+import UI.UIUtils.UISettings;
 import java.io.File;
 import java.awt.image.BufferedImage;
 import java.io.*;
@@ -130,6 +131,16 @@ public class FileWrite {
             }
         }
         folder.delete();
+    }
+
+    public static void saveSettings() throws IOException {
+        File file = FileNavigation.getSettingsFile();
+        if (!file.exists()) {
+            file.createNewFile();
+        }
+        ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream(file));
+        oos.writeObject(UISettings.getInstance());
+        oos.close();
     }
 
 }
