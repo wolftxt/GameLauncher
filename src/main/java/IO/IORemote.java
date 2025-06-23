@@ -14,6 +14,12 @@ import UI.main.TabUpdate;
 
 import org.json.JSONArray;
 
+/**
+ * A class encapsulating downloads from github, where the data is stored as a
+ * JSON.
+ *
+ * @author davidwolf
+ */
 public class IORemote {
 
     private static final String GAME_LIST_URL = "https://raw.githubusercontent.com/wolftxt/GameLauncher/refs/heads/master/GameList.json";

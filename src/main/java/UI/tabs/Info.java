@@ -4,7 +4,7 @@ import UI.UIUtils.DisplayText;
 import java.util.Scanner;
 
 /**
- * The info tab of the program. Displays basic info text about the program.
+ * The info tab of the program. Displays basic info saved in Resources.
  *
  * @author davidwolf
  */

@@ -15,10 +15,7 @@ import org.json.JSONArray;
 import org.json.JSONObject;
 
 /**
- * A class used for files IO operations.
- *
- * File IO: Creates a folder called "games" in the same directory as the .jar
- * file and saves and loads everything from that folder.
+ * A class used to save UI settings and downloaded games.
  *
  * @author davidwolf
  */

@@ -7,7 +7,8 @@ import java.io.*;
 
 /**
  * A singleton class used to store UI constants such as colors, fonts, etc. Can
- * be loaded and saved to a file.
+ * be loaded and saved to a file. Settings are saved in the FileWrite with
+ * method calls from Settings.java in UI.tabs.
  *
  * @author davidwolf
  */

@@ -3,6 +3,12 @@ package IO.files;
 import java.io.File;
 import java.net.URISyntaxException;
 
+/**
+ * A class to handle file navigation allowing other classes to know exactly
+ * where to read and write files.
+ *
+ * @author davidwolf
+ */
 public class FileNavigation {
 
     private static final String JSON_FILE_NAME = "DownloadedList.json";

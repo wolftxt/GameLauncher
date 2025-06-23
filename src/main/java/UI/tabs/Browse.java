@@ -15,7 +15,7 @@ import org.json.JSONObject;
 import UI.main.TabUpdate;
 
 /**
- * The browse tab of the program. Holds cards loaded from GitHub.
+ * The browse tab of the program. Holds cards loaded from the IORemote class.
  *
  * @author davidwolf
  */
