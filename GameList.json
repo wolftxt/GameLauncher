@@ -28,5 +28,11 @@
     "description": "Conway's game of life with cool features.",
     "screenshotUrl": "https://raw.githubusercontent.com/wolftxt/Game-Of-Life/refs/heads/master/screenshot.png",
     "executableUrl": "https://github.com/wolftxt/Game-Of-Life/releases/download/1.0.3/GameOfLife.jar"
+  },
+  {
+    "title": "Tetris",
+    "description": "A tetris implementation in java that allows the user to modify their controlls settings.",
+    "screenshotUrl": "https://raw.githubusercontent.com/wolftxt/Tetris/refs/tags/1.0.0/screenshot.png",
+    "executableUrl": "https://github.com/wolftxt/Tetris/releases/download/1.0.0/Tetris.jar"
   }
 ]
