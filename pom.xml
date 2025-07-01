@@ -8,7 +8,7 @@
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <maven.compiler.release>21</maven.compiler.release>
-        <exec.mainClass>main.GameLauncher</exec.mainClass>
+        <exec.mainClass>UI.main.GameLauncher</exec.mainClass>
     </properties>
     <dependencies>
         <dependency>
