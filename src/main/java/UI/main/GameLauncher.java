@@ -56,11 +56,7 @@ public class GameLauncher extends javax.swing.JFrame {
     public static void main(String args[]) {
         FlatDarkLaf.setup();
         FlatLaf.setUseNativeWindowDecorations(true);
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new GameLauncher().setVisible(true);
-            }
-        });
+        java.awt.EventQueue.invokeLater(() -> new GameLauncher().setVisible(true));
     }
 
     private Navbar navbar1;
