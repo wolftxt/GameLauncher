@@ -57,6 +57,7 @@ public class Settings extends JPanel {
         JButton reset = new JButton("Reset all settings to defaults");
         reset.addActionListener(e -> {
             UISettings.resetToDefaults();
+            callback.addCard(3);
         });
         wrapper.add(reset);
         this.add(wrapper);
