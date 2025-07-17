@@ -39,13 +39,16 @@ public class Settings extends JPanel {
 
             JLabel currValue = new JLabel(getStringValue(object));
             currValue.setHorizontalAlignment(SwingConstants.CENTER);
+            if (object instanceof Color c) {
+                currValue.setForeground(c);
+            }
             label.setFont(settings.PAGE_FONT);
             row.add(currValue, BorderLayout.CENTER);
 
             JButton button = new JButton("set");
             button.setFont(settings.PAGE_FONT);
             button.addActionListener(e -> {
-                setSetting(field, object, callback);
+                setSetting(field, object, currValue);
             });
             row.add(button, BorderLayout.EAST);
 
@@ -83,7 +86,7 @@ public class Settings extends JPanel {
         }
     }
 
-    private void setSetting(Field field, Object object, TabUpdate callback) {
+    private void setSetting(Field field, Object object, JLabel label) {
         UISettings settings = UISettings.getInstance();
         try {
             switch (object) {
@@ -119,7 +122,7 @@ public class Settings extends JPanel {
                         try {
                             field.set(settings, newSetting);
                             FileWrite.saveSettings();
-                            callback.addCard(3);
+                            label.setText(getStringValue(newSetting));
                         } catch (IllegalArgumentException | IllegalAccessException | IOException ex) {
                             ex.printStackTrace();
                         } finally {
@@ -140,6 +143,8 @@ public class Settings extends JPanel {
                         return;
                     }
                     field.set(settings, c);
+                    label.setText(getStringValue(c));
+                    label.setForeground(c);
                 }
                 case Font f -> {
                     FontDialog dialog = new FontDialog((Frame) null, "Choose a font:", true);
@@ -148,20 +153,23 @@ public class Settings extends JPanel {
                     if (!dialog.isCancelSelected()) {
                         field.set(settings, dialog.getSelectedFont());
                     }
+                    label.setText(getStringValue(f));
+                    label.setFont(f);
                 }
                 case Integer i -> {
                     String input = JOptionPane.showInputDialog("Set a numeric value");
                     try {
-                        field.set(settings, Integer.parseInt(input));
+                        i = Integer.parseInt(input);
+                        field.set(settings, i);
                     } catch (NumberFormatException ex) {
                         System.err.println("Invalid number input");
                     }
+                    label.setText(getStringValue(i));
                 }
                 default ->
                     JOptionPane.showMessageDialog(this, "Unsupported datatype", "Cannot modify the datatype of this setting", JOptionPane.ERROR_MESSAGE);
             }
             FileWrite.saveSettings();
-            callback.addCard(3);
         } catch (IllegalArgumentException | IllegalAccessException | IOException ex) {
             ex.printStackTrace();
         }
