@@ -117,7 +117,9 @@ public class Settings extends JPanel {
                         Dimension newSetting = new Dimension(width, height);
                         try {
                             field.set(settings, newSetting);
-                        } catch (IllegalArgumentException | IllegalAccessException ex) {
+                            FileWrite.saveSettings();
+                            callback.addCard(3);
+                        } catch (IllegalArgumentException | IllegalAccessException | IOException ex) {
                             ex.printStackTrace();
                         } finally {
                             dialog.dispose();
