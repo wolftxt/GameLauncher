@@ -33,7 +33,9 @@ public class Settings extends JPanel {
             }
             JPanel row = new JPanel(new BorderLayout(10, 10));
 
-            JLabel label = new JLabel(field.getName() + ": ");
+            String name = field.getName().replace('_', ' ').toLowerCase() + ": ";
+            String capitalized = name.substring(0, 1).toUpperCase() + name.substring(1);
+            JLabel label = new JLabel(capitalized);
             label.setFont(settings.PAGE_FONT);
             row.add(label, BorderLayout.WEST);
 
