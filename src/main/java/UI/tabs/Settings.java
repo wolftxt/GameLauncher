@@ -77,7 +77,13 @@ public class Settings extends JPanel {
                 return d.width + ", " + d.height;
             }
             case Color c -> {
-                return Arrays.toString(c.getColorComponents(null));
+                StringBuilder sb = new StringBuilder();
+                sb.append(c.getRed());
+                sb.append(", ");
+                sb.append(c.getGreen());
+                sb.append(", ");
+                sb.append(c.getBlue());
+                return sb.toString();
             }
             case Font f -> {
                 return f.getFamily() + " " + f.getSize();
