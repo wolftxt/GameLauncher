@@ -37,20 +37,23 @@ public class Settings extends JPanel {
             label.setFont(settings.PAGE_FONT);
             row.add(label, BorderLayout.WEST);
 
+            JPanel right = new JPanel(new FlowLayout(FlowLayout.LEFT, 10, 0));
+
             JLabel currValue = new JLabel(getStringValue(object));
             currValue.setHorizontalAlignment(SwingConstants.CENTER);
             if (object instanceof Color c) {
                 currValue.setForeground(c);
             }
             label.setFont(settings.PAGE_FONT);
-            row.add(currValue, BorderLayout.CENTER);
+            right.add(currValue);
 
-            JButton button = new JButton("set");
+            JButton button = new JButton("Change");
             button.setFont(settings.PAGE_FONT);
             button.addActionListener(e -> {
                 setSetting(field, object, currValue);
             });
-            row.add(button, BorderLayout.EAST);
+            right.add(button);
+            row.add(right, BorderLayout.EAST);
 
             row.setMaximumSize(new Dimension(Integer.MAX_VALUE, 25));
             this.add(row);
