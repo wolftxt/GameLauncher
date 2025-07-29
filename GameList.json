@@ -33,6 +33,6 @@
     "title": "Tetris",
     "description": "A tetris implementation in java that allows the user to modify their controlls settings.",
     "screenshotUrl": "https://raw.githubusercontent.com/wolftxt/Tetris/refs/heads/master/screenshot.png",
-    "executableUrl": "https://github.com/wolftxt/Tetris/releases/download/1.1.1/Tetris.jar"
+    "executableUrl": "https://github.com/wolftxt/Tetris/releases/download/1.1.2/Tetris.jar"
   }
 ]
