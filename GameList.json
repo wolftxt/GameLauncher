@@ -38,7 +38,7 @@
   {
     "title": "Sudoku",
     "description": "A customizable Sudoku game of any size with a solver.",
-    "screenshotUrl": "https://raw.githubusercontent.com/wolftxt/Sudoku/refs/heads/master/screenshot.png?token=GHSAT0AAAAAADEE5Y7MTESUDJV6BG67B2VS2EXDBKQ",
+    "screenshotUrl": "https://raw.githubusercontent.com/wolftxt/Sudoku/refs/heads/master/screenshot.png",
     "executableUrl": "https://github.com/wolftxt/Sudoku/releases/download/1.0.0/Sudoku.jar"
   }
 ]
